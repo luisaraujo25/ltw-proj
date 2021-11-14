@@ -1,0 +1,55 @@
+h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Lobster', cursive;
+    color:brown;
+    font-size: 45px;
+    text-align: center;
+}
+
+.semente{
+    width:15px;
+    height:15px;
+    background-color: red;
+    border-radius: 50%;
+    display:flex;
+}
+
+#tabuleiro{
+    /*background-color: rgb(95, 20, 20);*/
+    background-image: url(text.jpg);
+    background-repeat: round;
+    width: 800px;
+    height: 300px;
+    margin: auto;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.armazem{
+    background-color: rgb(114, 61, 51);
+    width: 100px;
+    height: 250px;
+    border-radius: 20px;
+}
+
+
+#armazem1{
+    flex-grow: 1;
+}
+
+#temporario{
+    width:350px;
+    height:250px;
+    background-color: aliceblue;
+    flex-grow: 1;
+}
+
+#armazem2{
+    flex-grow: 1;
+}
+
+body{
+    
+}
