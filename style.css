@@ -7,7 +7,7 @@ h1{
 }
 
 .semente{
-    width:15px;
+    width:20px;
     height:15px;
     background-color: red;
     border-radius: 50%;
@@ -24,30 +24,36 @@ h1{
     border-radius: 20px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 
 .armazem{
     background-color: rgb(114, 61, 51);
-    width: 100px;
+    width: 150px;
     height: 250px;
     border-radius: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 
 #armazem1{
-    flex-grow: 1;
+    order:0;
 }
 
 #temporario{
     width:350px;
     height:250px;
     background-color: aliceblue;
-    flex-grow: 1;
+    order: 0;
 }
 
 #armazem2{
-    flex-grow: 1;
+    order:0;
 }
 
 body{
