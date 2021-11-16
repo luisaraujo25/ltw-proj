@@ -4,6 +4,10 @@ body{
     margin-left: 20px;
 }
 
+::selection{
+    background-color: rgb(213, 255, 213);
+}
+
 h1{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-family: 'Lobster', cursive;
