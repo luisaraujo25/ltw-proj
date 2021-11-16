@@ -49,11 +49,61 @@ h1{
     height: 150px;
     background-color: rgb(129, 129, 129);
     border-radius: 20px;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.option{
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 20px;
+    width: 40px;
+}
+
+.general{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+#n_sem{
+    margin-left: 20px;
+
+}
+
+#num_sementes{
+}
+
+#n_cav{
+    
+    
+}
+
+#num_cavidades{
+}
+
+#start{
+
+}
+
+#starting{
+
+}
+
+#n_pl{
+
+}
+
+#num_players{
+    width: 98px;
 }
 
 #refresh{
-    margin-left: 1100px;
+    margin-left: 70px;
     margin-top: 110px;
 }
 
