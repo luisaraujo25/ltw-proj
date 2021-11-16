@@ -1,9 +1,21 @@
+body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 h1{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-family: 'Lobster', cursive;
-    color:brown;
+    color:rgb(18, 88, 16);
     font-size: 45px;
     text-align: center;
+}
+
+#main_title{    
+    text-decoration-line: underline;
+    text-decoration-color: rgb(36, 122, 33);
+    text-shadow: 10px;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 3px;
 }
 
 .regras-container {
@@ -106,25 +118,48 @@ h1{
     margin-left: 11px; 
     margin-top: auto;
     margin-bottom: auto;
-    transform: rotate(45deg);
+    /* transform: rotate(45deg); */
 }
 
 #armazem1{
     order:0;
 }
 
-#temporario{
-    width:350px;
-    height:250px;
-    background-color: aliceblue;
-    order: 0;
-}
-
-
 #armazem2{
     order:0;
 }
 
-body{
-    
+.button{
+    background-color: rgb(13, 94, 47);
+    color:rgb(213, 248, 229);
+    font-size: 20px;
+    border-radius: 10px;
+    border-color: rgb(14, 99, 73);
+    border-width: 3px;
+    border-style: outset;  
+}
+
+.button:hover{
+    border-style: inset;
+}
+
+.button:active{
+    color:white;
+    background-color: rgb(22, 126, 65);
+}
+
+a:link{
+    text-decoration: none;
+    /* color: rgb(13, 94, 47); */
+    color: rgb(13, 94, 47);
+}
+
+a:visited{
+    color:rgb(13, 94, 47);
+}
+
+/* hover tem de estar depois de visited */
+a:hover{
+    text-decoration: underline;
+    color: rgb(22, 126, 65);
 }
