@@ -13,22 +13,56 @@
 <h1>Mancala</h1>
 
 <p><a href="#jogo">Jogo</a><p>
-<h3>Regras</h3>
-<ol>
-    <li>Regra 1</li>
-    <li>Regra 2</li>
-    <li>Regra 3</li>
-</ol>
+
+<div>
+    <button id="open">
+        Regras
+    </button>
+</div>
+
+<div class="regras-container" id="regras_container">
+    <div class="regras-modal">
+        <h1> Regras do Mancala </h1>
+        <p>O jogo tem como objetivo colecionar o máximo de sementes no teu armazem (o que se encontra do teu lado
+            direito do tabuleiro) seguindo as regras seguintes:</p>
+        <ol>
+            <li>Apenas podes mexer as sementes do teu lado.</li>
+            <li>Sempre que é o teu turno, escolhes uma cavidade da qual retiras todas as sementes e distribuis 1 a 1
+                pelas cavidades seguintes no sentido anti-horário</li>
+            <li>Se a última semente que plantares ficar no teu armazem podes jogar novamente</li>
+            <li>Se a última semente que plantares ficar numa cavidade vazia e a cavidade oposta tiver sementes,
+                então todas as sementes de ambas as cavidades vão para o teu armazem</li>
+        </ol>
+        <button id="close"> Close </button>
+    </div>
+</div>
 
 <div id="jogo">
+    <div>
+        *Configurações: 3, 4 ou 5 cavidades*
+    </div>
     <div class="semente"></div>
     <div id="tabuleiro">
         <div class="armazem" id="armazem1"></div>
-        <div class="armazem" id="temporario"></div>
+        <div class="cavidade_space">
+            <div class="up_side">
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+            </div>
+            <div class="down_side">
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+                <div class="cavidade"></div>
+            </div>
+        </div>
         <div class="armazem" id="armazem2"></div>
     </div>
 </div>
-    
-
+<script type="text/javascript" src="app.js"></script>
 </body>
 </html>

@@ -6,6 +6,28 @@ h1{
     text-align: center;
 }
 
+.regras-container {
+    background-color: rgba(0,0,0,0.3);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.regras-modal {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding:30px 50px;
+    width: 1000px;
+    max-width: 100%;
+    text-align: left;
+}
+
 .semente{
     width:20px;
     height:15px;
@@ -30,13 +52,56 @@ h1{
 
 .armazem{
     background-color: rgb(114, 61, 51);
-    width: 150px;
+    width: 130px;
     height: 250px;
     border-radius: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
+    margin-bottom: auto;
+}
+
+.cavidade_space{
+    width: 490px;
+    height: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.cavidade{
+    width: 70px;
+    height: 100px;
+    background-color: lightcoral;
+    border-radius: 20px;
+    display: flex;
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    flex-wrap: wrap;
+}
+
+
+.up_side{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-top: auto;
+    margin-right: 10px;
+    margin-bottom: auto;
+}
+
+.down_side{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    margin-top: auto;
+    margin-right: 10px;
     margin-bottom: auto;
 }
 
@@ -51,6 +116,7 @@ h1{
     background-color: aliceblue;
     order: 0;
 }
+
 
 #armazem2{
     order:0;
