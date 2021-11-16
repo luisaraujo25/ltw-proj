@@ -63,10 +63,8 @@ h1{
 }
 
 .cavidade_space{
-    width: 490px;
+    width: 470px;
     height: 250px;
-    margin-left: auto;
-    margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
@@ -74,7 +72,7 @@ h1{
 }
 
 .cavidade{
-    width: 70px;
+    width: 75px;
     height: 100px;
     background-color: lightcoral;
     border-radius: 20px;
