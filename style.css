@@ -16,6 +16,7 @@ h1{
     left: 0;
     height: 100vh;
     width: 100vw;
+    animation-timing-function: ease;
 }
 
 .regras-modal {
@@ -28,13 +29,6 @@ h1{
     text-align: left;
 }
 
-.semente{
-    width:20px;
-    height:15px;
-    background-color: red;
-    border-radius: 50%;
-    display:flex;
-}
 
 #tabuleiro{
     /*background-color: rgb(95, 20, 20);*/
@@ -51,7 +45,7 @@ h1{
 
 
 .armazem{
-    background-color: rgb(114, 61, 51);
+    background-color: rgb(83, 79, 78);
     width: 130px;
     height: 250px;
     border-radius: 20px;
@@ -71,20 +65,6 @@ h1{
     flex-direction: column;
 }
 
-.cavidade{
-    width: 75px;
-    height: 100px;
-    background-color: lightcoral;
-    border-radius: 20px;
-    display: flex;
-    margin-left: auto;
-    margin-top: auto;
-    margin-right: auto;
-    margin-bottom: auto;
-    flex-wrap: wrap;
-}
-
-
 .up_side{
     display: flex;
     flex-direction: row;
@@ -103,6 +83,31 @@ h1{
     margin-bottom: auto;
 }
 
+.cavidade{
+    width: 75px;
+    height: 100px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.semente{
+    width:10px;
+    height:20px;
+    background-color: red;
+    border-radius: 50%;
+    display:flex;
+    flex-wrap: wrap;
+    margin-left: 11px; 
+    margin-top: auto;
+    margin-bottom: auto;
+    transform: rotate(45deg);
+}
 
 #armazem1{
     order:0;

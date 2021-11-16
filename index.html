@@ -14,6 +14,10 @@
 
 <p><a href="#jogo">Jogo</a><p>
 
+<div class="config">
+    <button onClick="window.location.reload();">Refresh</button>
+</div>
+
 <div>
     <button id="open">
         Regras
@@ -39,14 +43,21 @@
 
 <div id="jogo">
     <div>
-        *Configurações: 3, 4 ou 5 cavidades*
+        *Configurações: 3, 4 ou 5 cavidades (4-6 em cada cavidade)*
     </div>
-    <div class="semente"></div>
     <div id="tabuleiro">
-        <div class="armazem" id="armazem1"></div>
+        <div class="armazem"></div>
         <div class="cavidade_space">
             <div class="up_side">
-                <div class="cavidade"></div>
+                <div class="cavidade">
+                    <div class="semente"></div>
+                    <div class="semente"></div>
+                    <div class="semente"></div>
+                    <div class="semente"></div>
+                    <div class="semente"></div>
+
+                    
+                </div>
                 <div class="cavidade"></div>
                 <div class="cavidade"></div>
                 <div class="cavidade"></div>
@@ -60,7 +71,7 @@
                 <div class="cavidade"></div>
             </div>
         </div>
-        <div class="armazem" id="armazem2"></div>
+        <div class="armazem"></div>
     </div>
 </div>
 <script type="text/javascript" src="app.js"></script>
