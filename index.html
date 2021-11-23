@@ -39,7 +39,6 @@
         <button class="button" id="close"> Close </button>
     </div>
 </div>
-
 <div id="config">
     <div class="general" id="n_sem">
         <p>Número de sementes:&nbsp&nbsp</p>
@@ -74,7 +73,8 @@
           </select>
     </div>
     <div class="config">
-        <button class="button" id="refresh" onClick="window.location.reload();">Start</button>
+        <button class="button" id="refresh" onclick="cavidade()">Start</button>
+        <!-- onClick="window.location.reload();" -->
     </div>
 </div>
 
@@ -85,7 +85,7 @@
         <div class="armazem"></div>
         <div class="cavidade_space">
             <div class="up_side">
-                <div class="cavidade">
+                <div class="cavidade" id="c1">
                     <div class="semente"></div>
                     <!-- <div class="semente"></div>
                     <div class="semente"></div>

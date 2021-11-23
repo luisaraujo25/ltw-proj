@@ -10,3 +10,12 @@ close.addEventListener("click", () => {
     regras_container.style.display = "none";
 });i
 
+function cavidade(){
+    const base = document.getElementById("c1");
+    const box =  document.createElement("div");
+    const space = document.createTextNode(" ");
+
+    box.appendChild(space);
+    base.appendChild(box);
+    base.appendChild(document.createTextNode("\n"));
+}
