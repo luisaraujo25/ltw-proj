@@ -9,3 +9,4 @@ open.addEventListener("click", () => {
 close.addEventListener("click", () => {
     regras_container.style.display = "none";
 });i
+
