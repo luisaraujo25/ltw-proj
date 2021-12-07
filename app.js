@@ -33,7 +33,7 @@ function removeElements(){
     
     //12 é o num máx de cavidades por isso verifica todas
     //6 é o num máx de sementes por isso verifica todas
-    for(let i=7;i<12;i++){
+    for(let i=7;i<=12;i++){
         var c=document.getElementById("c"+i);
 
         if(c!=null){
@@ -60,7 +60,6 @@ function addElements(){
     //adicionar as cavidades adicionais
     var add_cav = document.getElementById("num_cavidades_op").value-3;
     var no_sem = document.getElementById("num_sementes_op").value;
-    window.alert(add_cav);
     for(let i=0;i<add_cav*2;i+=2){
         addCav(i);
     }
@@ -72,7 +71,6 @@ function addElements(){
             addSem("c"+i,i,j);
         }
     }
-
 }
 
 function addSem(c_cav_id, cav_id, aux_id) {
