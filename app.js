@@ -46,7 +46,7 @@ function removeElements(){
             var s=document.getElementById("sem"+i+j);
             if(s!=null){
                 s.remove();
-                window.alert("sem"+i+j);
+                // window.alert("sem"+i+j);
             }
         }
     }
@@ -65,23 +65,23 @@ function addElements(no_sem, add_cav){
 
     //adicionar sementes a TODAS as cavidades (MAX 12)
     const no_cav = 6+add_cav*2
-    // window.alert(no_sem);
     for(let i=1;i<=no_cav;i++){
         for(let j=1;j<=no_sem;j++){
-            addSem("c"+i,j);
+            addSem("c"+i,i,j);
         }
     }
 
 }
 
-function addSem(cav_id, aux_id) {
+function addSem(c_cav_id, cav_id, aux_id) {
     
     var sem = document.createElement("div");
     sem.setAttribute("class","semente");
-    document.getElementById(cav_id).appendChild(sem);
+    document.getElementById(c_cav_id).appendChild(sem);
     //ex: sem_id="sem+1+1"
     var sem_id="sem"+cav_id+aux_id;
     sem.setAttribute("id", sem_id);
+    // window.alert(sem_id);
 }
 //setattributeid
 
