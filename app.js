@@ -29,26 +29,59 @@ var indexStart = selectStart.selected
 
 var TotalSementes = (nCavidades * nSementes)
 
+function removeElements(){
+    
+    //12 é o num máx de cavidades por isso verifica todas
+    //6 é o num máx de sementes por isso verifica todas
+    for(let i=7;i<12;i++){
+        var c=document.getElementById("c"+i);
 
-//3 é o default number para cavidades
-function addElements(no_sem, add_cav){
-
-    for(let i=0;i<add_cav*2;i+=2){
-        addCav(i);
+        if(c!=null){
+            c.remove();
+        }
+        
     }
-    const no_cav = 6+add_cav*2
-    for(let i=1;i<=no_cav;i++){
-        for(let j=0;j<no_sem;j++){
-            addSem("c"+i);
+    for(let i=1;i<=12;i++){
+        for(let j=1;j<=6;j++){
+            var s=document.getElementById("sem"+i+j);
+            if(s!=null){
+                s.remove();
+                window.alert("sem"+i+j);
+            }
         }
     }
 }
 
-function addSem(id) {
+
+//3 é o default number para cavidades
+function addElements(no_sem, add_cav){
+
+    removeElements();
+
+    //adicionar as cavidades adicionais
+    for(let i=0;i<add_cav*2;i+=2){
+        addCav(i);
+    }
+
+    //adicionar sementes a TODAS as cavidades (MAX 12)
+    const no_cav = 6+add_cav*2
+    // window.alert(no_sem);
+    for(let i=1;i<=no_cav;i++){
+        for(let j=1;j<=no_sem;j++){
+            addSem("c"+i,j);
+        }
+    }
+
+}
+
+function addSem(cav_id, aux_id) {
     
     var sem = document.createElement("div");
     sem.setAttribute("class","semente");
-    document.getElementById(id).appendChild(sem);
+    document.getElementById(cav_id).appendChild(sem);
+    //ex: sem_id="sem+1+1"
+    var sem_id="sem"+cav_id+aux_id;
+    sem.setAttribute("id", sem_id);
 }
 //setattributeid
 
@@ -63,7 +96,4 @@ function addCav(i) {
     var id_up="c"+(7+i), id_down="c"+(8+i);
     cav.setAttribute("id", id_up);
     cav2.setAttribute("id", id_down);
-
-    window.alert(id_up);
-    window.alert(id_down);
 }
