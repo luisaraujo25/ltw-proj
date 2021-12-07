@@ -39,6 +39,7 @@
         <button class="button" id="close"> Close </button>
     </div>
 </div>
+
 <div id="config">
     <div class="general" id="n_sem">
         <p>Número de sementes:&nbsp&nbsp</p>
@@ -57,23 +58,23 @@
             <option value="6">6</option>
           </select>
     </div>
-    <div class="general" id="start">
+    <div class="general" id="n_pl">
         <p>Número de jogadores:&nbsp&nbsp</p>
-        <select class="option" id="starting">
+        <select class="option" id="num_players">
             <option value="1">1</option>
             <option value="2">2</option>
           </select>
     </div>
-    <div class="general" id="n_pl">
+    <div class="general" id="start">
         <p>Quem começa:&nbsp&nbsp</p>
-        <select class="option" id="num_players">
+        <select class="option" id="starting">
             <option value="user">User</option>
             <option value="computador">Computador</option>
             <option value="randomstart">Random</option>
           </select>
     </div>
     <div class="config">
-        <button class="button" id="refresh" onclick="cavidade()">Start</button>
+        <button class="button" id="refresh"  onclick="addElements(5,4)">Start</button>
         <!-- onClick="window.location.reload();" -->
     </div>
 </div>
@@ -84,32 +85,21 @@
     <div id="tabuleiro">
         <div class="armazem"></div>
         <div class="cavidade_space">
-            <div class="up_side">
+            <div id="up_side">
                 <div class="cavidade" id="c1">
-                    <div class="semente"></div>
-                    <!-- <div class="semente"></div>
-                    <div class="semente"></div>
-                    <div class="semente"></div>
-                    <div class="semente"></div> -->
-
-                    
                 </div>
-                <div class="cavidade"></div>
-                <div class="cavidade"></div>
-                <div class="cavidade"></div>
-                <div class="cavidade"></div>
             </div>
-            <div class="down_side">
-                <div class="cavidade"></div>
-                <div class="cavidade"></div>
-                <div class="cavidade"></div>
-                <div class="cavidade"></div>
-                <div class="cavidade"></div>
+            <div id="down_side">
+                <!-- <div class="cavidade"></div> -->
             </div>
         </div>
         <div class="armazem"></div>
     </div>
-
+    <br><br>
+    <div id="extra">
+        <button class="button" id="scores">Classifições</button>
+        <button class="button" id="giveup">Desistir</button>
+    </div>
     <p>Go back to the <a href="#top">top</a></p>
 </div>
 <script type="text/javascript" src="app.js"></script>

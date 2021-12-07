@@ -94,7 +94,7 @@ h1{
 
 }
 
-#num_players{
+#starting{
     width: 98px;
 }
 
@@ -136,10 +136,11 @@ h1{
     margin-top: auto;
     margin-bottom: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction:column;
+    /* background-color: black; */
 }
 
-.up_side{
+#up_side{
     display: flex;
     flex-direction: row;
     margin-left: 10px;
@@ -148,7 +149,7 @@ h1{
     margin-bottom: auto;
 }
 
-.down_side{
+#down_side{
     display: flex;
     flex-direction: row;
     margin-left: 10px;
@@ -211,6 +212,22 @@ h1{
 .button:active{
     color:white;
     background-color: rgb(22, 126, 65);
+}
+
+#giveup{
+    /* margin-left: 1100px; */
+}
+
+#scores{
+    /* margin-left: 1000px; */
+}
+
+#extra{
+    display: flex;
+    margin-right: auto;
+    margin-left: 980px;
+    justify-content: space-between;
+    max-width: 220px;
 }
 
 a:link{
