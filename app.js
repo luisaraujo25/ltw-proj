@@ -30,13 +30,16 @@ var indexStart = selectStart.selected
 var TotalSementes = (nCavidades * nSementes)
 
 
-function addElements(no_sem, no_cav){
+//3 é o default number para cavidades
+function addElements(no_sem, add_cav){
 
-    for(let i=0;i<no_cav;i++){
-        var id=addCav(i);
-        
+    for(let i=0;i<add_cav*2;i+=2){
+        addCav(i);
+    }
+    const no_cav = 6+add_cav*2
+    for(let i=1;i<=no_cav;i++){
         for(let j=0;j<no_sem;j++){
-            addSem(id);
+            addSem("c"+i);
         }
     }
 }
@@ -52,11 +55,15 @@ function addSem(id) {
 function addCav(i) {
     
     var cav = document.createElement("div");
-    // var cav2 = document.createElement("div");
+    var cav2 = document.createElement("div");
     cav.setAttribute("class","cavidade");
-    // cav2.setAttribute("class","cavidade");
+    cav2.setAttribute("class","cavidade");
     document.getElementById('up_side').appendChild(cav);
-    // document.getElementById('down_side').appendChild(cav2);
-    var id="cav"+i;
-    return id;
+    document.getElementById('down_side').appendChild(cav2);
+    var id_up="c"+(7+i), id_down="c"+(8+i);
+    cav.setAttribute("id", id_up);
+    cav2.setAttribute("id", id_down);
+
+    window.alert(id_up);
+    window.alert(id_down);
 }
