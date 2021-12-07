@@ -46,7 +46,6 @@ function removeElements(){
             var s=document.getElementById("sem"+i+j);
             if(s!=null){
                 s.remove();
-                // window.alert("sem"+i+j);
             }
         }
     }
@@ -54,11 +53,14 @@ function removeElements(){
 
 
 //3 é o default number para cavidades
-function addElements(no_sem, add_cav){
+function addElements(){
 
     removeElements();
 
     //adicionar as cavidades adicionais
+    var add_cav = document.getElementById("num_cavidades_op").value-3;
+    var no_sem = document.getElementById("num_sementes_op").value;
+    window.alert(add_cav);
     for(let i=0;i<add_cav*2;i+=2){
         addCav(i);
     }
@@ -81,7 +83,6 @@ function addSem(c_cav_id, cav_id, aux_id) {
     //ex: sem_id="sem+1+1"
     var sem_id="sem"+cav_id+aux_id;
     sem.setAttribute("id", sem_id);
-    // window.alert(sem_id);
 }
 //setattributeid
 
