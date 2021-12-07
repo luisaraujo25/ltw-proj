@@ -12,22 +12,22 @@ close.addEventListener("click", () => {
 });
 
 // Variáveis
-var selectSementes = document.getElementById('num_sementes')
-var nSementes = selectSementes.selectedIndex;
-nSementes = nSementes + 4;
+// var selectSementes = document.getElementById('num_sementes')
+// // var nSementes = selectSementes.selectedIndex;
+// nSementes = nSementes + 4;
 
-var selectCavidades = document.getElementById('num_cavidades')
-var nCavidades = selectCavidades.selectedIndex;
-nCavidades = nCavidades + 3;
+// var selectCavidades = document.getElementById('num_cavidades')
+// var nCavidades = selectCavidades.selectedIndex;
+// nCavidades = nCavidades + 3;
 
-var selectPlayers = document.getElementById('num_players')
-var nPlayers = selectPlayers.selectedIndex;
-nPlayers = nPlayers + 1;
+// var selectPlayers = document.getElementById('num_players')
+// var nPlayers = selectPlayers.selectedIndex;
+// nPlayers = nPlayers + 1;
 
-var selectStart = document.getElementById('starting')
-var indexStart = selectStart.selected
+// var selectStart = document.getElementById('starting')
+// var indexStart = selectStart.selected
 
-var TotalSementes = (nCavidades * nSementes)
+// var TotalSementes = (nCavidades * nSementes)
 
 function removeElements(){
     
@@ -95,4 +95,24 @@ function addCav(i) {
     var id_up="c"+(7+i), id_down="c"+(8+i);
     cav.setAttribute("id", id_up);
     cav2.setAttribute("id", id_down);
+}
+
+var end=false
+
+function give_up(){
+    window.alert("desisti");
+    end = true;
+}
+
+
+document.getElementById("giveup").addEventListener("click", give_up);
+function game(){
+
+    addElements();
+    // while(end!=true){
+    //     document.getElementById("giveup").onclick = giveup();
+
+    //     // document.getElementById("giveup").addEventListener 
+    // }
+    
 }
