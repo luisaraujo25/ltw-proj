@@ -57,7 +57,7 @@ function addElements(){
 
     removeElements();
 
-    //adicionar as cavidades adicionais
+    //adicionar as cavidades adicionais, por default sao 3
     var add_cav = document.getElementById("num_cavidades_op").value-3;
     var no_sem = document.getElementById("num_sementes_op").value;
     for(let i=0;i<add_cav*2;i+=2){
@@ -97,22 +97,16 @@ function addCav(i) {
     cav2.setAttribute("id", id_down);
 }
 
-var end=false
+var end=false;
 
 function give_up(){
-    window.alert("desisti");
-    end = true;
+    // window.alert("desisti?");
+    removeElements();
 }
 
+// document.getElementById("giveup").addEventListener("click", give_up);
 
-document.getElementById("giveup").addEventListener("click", give_up);
 function game(){
 
     addElements();
-    // while(end!=true){
-    //     document.getElementById("giveup").onclick = giveup();
-
-    //     // document.getElementById("giveup").addEventListener 
-    // }
-    
 }
