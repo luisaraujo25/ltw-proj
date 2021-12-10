@@ -107,13 +107,17 @@ function give_up(){
     removeElements();
 }
 
-document.getElementById("giveup").addEventListener("click", give_up);
 //game event listeners
 // document.getElementById("scores").addEventListener("click", clicking_cav());
 
 function game(){
-
+    
     addElements();
+    //testing with c1
+    if(document.getElementById("c1")!=null){
+        document.getElementById("c1").addEventListener("click", clicking_cav);
+    }
+    document.getElementById("giveup").addEventListener("click", give_up);
 }
 
 function clicking_cav(){
@@ -127,6 +131,11 @@ function clicking_cav(){
         var len=sementes.length;
         for(let i=0;i<len;i++){
             document.getElementById("c2").appendChild(sementes[0]);  
+    
         }
     }
+}
+
+function alertme(){
+    window.alert("ola");
 }
