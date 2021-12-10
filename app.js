@@ -33,7 +33,7 @@ function removeElements(){
     
     //12 é o num máx de cavidades por isso verifica todas
     //6 é o num máx de sementes por isso verifica todas
-    for(let i=7;i<=12;i++){
+    for(let i=1;i<=12;i++){
         var c=document.getElementById("c"+i);
 
         if(c!=null){
@@ -58,15 +58,17 @@ function addElements(){
     removeElements();
 
     //adicionar as cavidades adicionais, por default sao 3
-    var add_cav = document.getElementById("num_cavidades_op").value-3;
+    var add_cav = document.getElementById("num_cavidades_op").value;
     var no_sem = document.getElementById("num_sementes_op").value;
-    for(let i=0;i<add_cav*2;i+=2){
-        addCav(i);
-    }
 
+    const no_cav = add_cav*2;
+
+    for(let i=1;i<=add_cav;i++){
+        addCav(i,no_cav);
+    }
     //adicionar sementes a TODAS as cavidades (MAX 12)
-    const no_cav = 6+add_cav*2
     for(let i=1;i<=no_cav;i++){
+        // window.alert(no_cav);
         for(let j=1;j<=no_sem;j++){
             addSem("c"+i,i,j);
         }
@@ -86,7 +88,7 @@ function addSem(c_cav_id, cav_id, aux_id) {
 }
 
 
-function addCav(i) {
+function addCav(i,no_cav) {
     
     var cav = document.createElement("div");
     var cav2 = document.createElement("div");
@@ -94,10 +96,10 @@ function addCav(i) {
     cav2.setAttribute("class","cavidade");
     document.getElementById('up_side').appendChild(cav);
     document.getElementById('down_side').appendChild(cav2);
-    var id_up="c"+(7+i), id_down="c"+(8+i);
+    var id_up="c"+(7-i), id_down="c"+i;
     cav.setAttribute("id", id_up);
     cav2.setAttribute("id", id_down);
-
+    window.alert("cav up: "+id_up+", cav_down: "+id_down);
 }
 
 var end=false;
@@ -114,7 +116,7 @@ function game(){
     
     addElements();
     //testing with c1
-    var total_cavs=document.getElementById("num_cavidades_op").value;
+    var total_cavs=document.getElementById("num_cavidades_op").value*2;
     for(let i=1;i<=total_cavs;i++){
         var cav_no = "c"+i;
         if(document.getElementById(cav_no)!=null){
@@ -138,6 +140,10 @@ function clicking_cav(){
     
         }
     }
+}
+
+function clicked(){
+    window.alert("aqui");
 }
 
 function alertme(){
