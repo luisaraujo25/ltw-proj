@@ -35,18 +35,15 @@ function removeElements(){
     //6 é o num máx de sementes por isso verifica todas
     for(let i=1;i<=12;i++){
         var c=document.getElementById("c"+i);
-
         if(c!=null){
-            c.remove();
-        }
-        
-    }
-    for(let i=1;i<=12;i++){
-        for(let j=1;j<=6;j++){
-            var s=document.getElementById("sem"+i+j);
-            if(s!=null){
-                s.remove();
+
+            for(let j=1;j<=6;j++){
+                var s=document.getElementById("sem"+i+j);
+                if(s!=null){
+                    s.remove();
+                }
             }
+            c.remove();
         }
     }
 }
@@ -67,24 +64,25 @@ function addElements(){
         addCav(i,no_cav);
     }
     //adicionar sementes a TODAS as cavidades (MAX 12)
+    // window.alert(no_cav);
     for(let i=1;i<=no_cav;i++){
-        // window.alert(no_cav);
+        // window.alert(i);
         for(let j=1;j<=no_sem;j++){
-            addSem("c"+i,i,j);
+            addSem(i,j);
         }
     }
 }
 
-function addSem(c_cav_id, cav_id, aux_id) {
+function addSem(cav_id, sem_id2) {
     
     var sem = document.createElement("div");
     sem.setAttribute("class","semente");
-    document.getElementById(c_cav_id).appendChild(sem);
+    document.getElementById("c"+cav_id).appendChild(sem);
     //ex: sem_id="sem+1+1"
-    var sem_id="sem"+cav_id+aux_id;
+    var sem_id="sem"+cav_id+sem_id2;
     sem.setAttribute("id", sem_id);
 
-    // window.alert("cav: "+c_cav_id+", sem: "+sem_id);
+    // window.alert("cav: "+cav_id+", sem: "+sem_id);
 }
 
 
@@ -96,7 +94,7 @@ function addCav(i,no_cav) {
     cav2.setAttribute("class","cavidade");
     document.getElementById('up_side').appendChild(cav);
     document.getElementById('down_side').appendChild(cav2);
-    var id_up="c"+(7-i), id_down="c"+i;
+    var id_up="c"+(no_cav+1-i), id_down="c"+i;
     cav.setAttribute("id", id_up);
     cav2.setAttribute("id", id_down);
     window.alert("cav up: "+id_up+", cav_down: "+id_down);
@@ -137,7 +135,6 @@ function clicking_cav(){
         var len=sementes.length;
         for(let i=0;i<len;i++){
             document.getElementById("c2").appendChild(sementes[0]);  
-    
         }
     }
 }
