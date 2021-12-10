@@ -114,8 +114,12 @@ function game(){
     
     addElements();
     //testing with c1
-    if(document.getElementById("c1")!=null){
-        document.getElementById("c1").addEventListener("click", clicking_cav);
+    var total_cavs=document.getElementById("num_cavidades_op").value;
+    for(let i=1;i<=total_cavs;i++){
+        var cav_no = "c"+i;
+        if(document.getElementById(cav_no)!=null){
+            document.getElementById(cav_no).addEventListener("click", clicking_cav);
+        }
     }
     document.getElementById("giveup").addEventListener("click", give_up);
 }
