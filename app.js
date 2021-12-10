@@ -81,8 +81,10 @@ function addSem(c_cav_id, cav_id, aux_id) {
     //ex: sem_id="sem+1+1"
     var sem_id="sem"+cav_id+aux_id;
     sem.setAttribute("id", sem_id);
+
+    // window.alert("cav: "+c_cav_id+", sem: "+sem_id);
 }
-//setattributeid
+
 
 function addCav(i) {
     
@@ -95,6 +97,7 @@ function addCav(i) {
     var id_up="c"+(7+i), id_down="c"+(8+i);
     cav.setAttribute("id", id_up);
     cav2.setAttribute("id", id_down);
+
 }
 
 var end=false;
@@ -104,9 +107,26 @@ function give_up(){
     removeElements();
 }
 
-// document.getElementById("giveup").addEventListener("click", give_up);
+document.getElementById("giveup").addEventListener("click", give_up);
+//game event listeners
+// document.getElementById("scores").addEventListener("click", clicking_cav());
 
 function game(){
 
     addElements();
+}
+
+function clicking_cav(){
+
+    // window.alert("im here");
+    var x = document.getElementById("c1");
+    if(x.hasChildNodes()){
+
+        var sementes = x.childNodes;
+        // window.alert(sementes.length);
+        var len=sementes.length;
+        for(let i=0;i<len;i++){
+            document.getElementById("c2").appendChild(sementes[0]);  
+        }
+    }
 }
