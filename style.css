@@ -237,6 +237,12 @@ h1{
     /* margin-left: 1000px; */
 }
 
+#cf{
+    background-color: black;
+    width: 500px;
+    height: 100px;
+}
+
 #extra{
     display: flex;
     margin-right: auto;

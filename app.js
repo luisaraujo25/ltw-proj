@@ -123,34 +123,96 @@ function give_up(){
     removeElements();
 }
 
-//game event listeners
-// document.getElementById("scores").addEventListener("click", clicking_cav());
+function score(n_a1, n_a2){
+
+    var winner="PLAYER ";
+    if(n_a1>n_a2){
+        winner+="1";
+    }
+    else if(n_a2>n_a1){
+        winner+="2";
+    }
+    else{
+        winner="EMPATE!";
+    }
+
+    console.log(winner);
+
+    const cf = document.createElement("div");
+    cf.setAttribute("id","cf");
+    document.getElementById("jogo").appendChild(cf);
+
+}
+
+function check_end(total_cavs){
+    
+    //o jogo acaba quando pelo menos um dos jogadores já não tiver mais jogadas possíveis
+    //verificar as cavidades de baixo
+    var acc1=0, acc2=0;
+    for(let i=1;i<=total_cavs/2-1;i++){
+        acc1+=document.getElementById("c"+i).childNodes.length;
+    }
+    for(let i=total_cavs/2+1;i<=total_cavs-1;i++){
+        acc2+=document.getElementById("c"+i).childNodes.length;
+    }
+
+    //se acabar verifica quem ganha
+    if(!acc1 || !acc2){
+
+        var n_a1=document.getElementById("c"+(total_cavs/2)).childNodes.length;
+        var n_a2=document.getElementById("c"+(total_cavs)).childNodes.length;
+        score(n_a1, n_a2);
+
+        return true;
+    }
+
+    return false;
+}
 
 function game(){
     
     addElements();
 
     var total_cavs=document.getElementById("num_cavidades_op").value*2+2;
-    // window.alert(total_cavs);
-    for(let i=1;i<=total_cavs;i++){
-        var cav_no = "c"+i;
 
+    var end;
+    //FAZER UMA JOGADA E ADICIONAR EVENT LISTENERS
+    for(let i=1;i<=total_cavs;i++){
+
+        var cav_no = "c"+i;
+        // console.log("ola");
         //esta condição impede adicionar evenlisteners para os armazens
         if(i==total_cavs/2 || i==total_cavs){
-            console.log(i);
             continue;
         }
+
         if(document.getElementById(cav_no)!=null){
             
             document.getElementById(cav_no).addEventListener("click", function(){
-
+                
+                //verificar se o jogo já não chegou ao fim
+                //return possiveis: 0 - ainda nao acabou, 1 - ganhou o jogador 1, 2 - ganhou o jogador 2/pc, 3 - empate
+                end = check_end(total_cavs);
+        
+                if(end==true){
+    
+                    for(let k=1;k<=total_cavs;k++){
+                        if(i==total_cavs/2 || i==total_cavs){
+                            continue;
+                        }
+                        console.log("c"+k);
+                        document.getElementById("c"+k).removeEventListener("click", arguments.callee);
+                    }
+                    return;
+                }
+    
                 if(this.hasChildNodes()){
             
                     var sementes = this.childNodes;
                     // window.alert(sementes.length);
                     var len=sementes.length;
                     for(let j=1;j<=len;j++){
-
+    
                         var x = "c"+(i+j);
                         //ver se dá a "volta"
                         if(i+j>total_cavs){
@@ -163,9 +225,10 @@ function game(){
             });
         }
     }
+
     document.getElementById("giveup").addEventListener("click", give_up);
 }
 
-function alertme(){
-    window.alert("ola");
+function announce_winner(){
+    console.log("yeet");
 }
