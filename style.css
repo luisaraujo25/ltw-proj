@@ -266,3 +266,14 @@ a:hover{
     text-decoration: underline;
     color: rgb(22, 126, 65);
 }
+
+.score_res{
+    color: whitesmoke;
+    width: 400px;
+    height: 200px;
+    font-size: 400%;
+    margin-top: auto;
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+}

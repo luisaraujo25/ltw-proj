@@ -123,27 +123,6 @@ function give_up(){
     removeElements();
 }
 
-function score(n_a1, n_a2){
-
-    var winner="PLAYER ";
-    if(n_a1>n_a2){
-        winner+="1";
-    }
-    else if(n_a2>n_a1){
-        winner+="2";
-    }
-    else{
-        winner="EMPATE!";
-    }
-
-    console.log(winner);
-
-    const cf = document.createElement("div");
-    cf.setAttribute("id","cf");
-    document.getElementById("jogo").appendChild(cf);
-
-}
-
 function check_end(total_cavs){
     
     //o jogo acaba quando pelo menos um dos jogadores já não tiver mais jogadas possíveis
@@ -159,14 +138,45 @@ function check_end(total_cavs){
     //se acabar verifica quem ganha
     if(!acc1 || !acc2){
 
-        var n_a1=document.getElementById("c"+(total_cavs/2)).childNodes.length;
-        var n_a2=document.getElementById("c"+(total_cavs)).childNodes.length;
-        score(n_a1, n_a2);
-
-        return true;
+        console.log("ganhei");
+        document.getElementById("tabuleiro").addEventListener("click",score);
     }
+}
 
-    return false;
+function score(){
+
+    
+    const total_cavs = document.getElementById("num_cavidades_op").value*2+2;
+    
+    console.log(total_cavs);
+    var n_a1=document.getElementById("c"+(total_cavs/2)).childNodes.length;
+    var n_a2=document.getElementById("c"+(total_cavs)).childNodes.length;
+    
+    console.log(n_a1);
+    
+    console.log(n_a2);
+    removeElements();
+    
+    var winner="PLAYER ";
+    if(n_a1>n_a2){
+        winner+="1";
+    }
+    else if(n_a2>n_a1){
+        winner+="2";
+    }
+    else{
+        winner="EMPATE!";
+    }
+    
+    console.log(winner);
+
+    const result = document.createElement("div");
+    result.innerText = "Winner: " + winner;
+    result.setAttribute("class","score_res");
+
+    document.getElementById("tabuleiro").appendChild(result);
+
+    document.getElementById("tabuleiro").removeEventListener("click",score);
 }
 
 function game(){
@@ -186,25 +196,13 @@ function game(){
             continue;
         }
 
+        //verifica de o elementos existe
         if(document.getElementById(cav_no)!=null){
             
             document.getElementById(cav_no).addEventListener("click", function(){
                 
-                //verificar se o jogo já não chegou ao fim
-                //return possiveis: 0 - ainda nao acabou, 1 - ganhou o jogador 1, 2 - ganhou o jogador 2/pc, 3 - empate
-                end = check_end(total_cavs);
-        
-                if(end==true){
-    
-                    for(let k=1;k<=total_cavs;k++){
-                        if(i==total_cavs/2 || i==total_cavs){
-                            continue;
-                        }
-                        console.log("c"+k);
-                        document.getElementById("c"+k).removeEventListener("click", arguments.callee);
-                    }
-                    return;
-                }
+                //verificar se o jogo já chegou ao fim
+                check_end(total_cavs);
     
                 if(this.hasChildNodes()){
             
