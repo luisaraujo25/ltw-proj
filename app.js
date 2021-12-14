@@ -134,6 +134,12 @@ function game(){
     // window.alert(total_cavs);
     for(let i=1;i<=total_cavs;i++){
         var cav_no = "c"+i;
+
+        //esta condição impede adicionar evenlisteners para os armazens
+        if(i==total_cavs/2 || i==total_cavs){
+            console.log(i);
+            continue;
+        }
         if(document.getElementById(cav_no)!=null){
             
             document.getElementById(cav_no).addEventListener("click", function(){
