@@ -11,23 +11,6 @@ close.addEventListener("click", () => {
     regras_container.style.display = "none";
 });
 
-// Variáveis
-// var selectSementes = document.getElementById('num_sementes')
-// // var nSementes = selectSementes.selectedIndex;
-// nSementes = nSementes + 4;
-
-// var selectCavidades = document.getElementById('num_cavidades')
-// var nCavidades = selectCavidades.selectedIndex;
-// nCavidades = nCavidades + 3;
-
-// var selectPlayers = document.getElementById('num_players')
-// var nPlayers = selectPlayers.selectedIndex;
-// nPlayers = nPlayers + 1;
-
-// var selectStart = document.getElementById('starting')
-// var indexStart = selectStart.selected
-
-// var TotalSementes = (nCavidades * nSementes)
 
 function removeElements(){
     
@@ -37,12 +20,13 @@ function removeElements(){
         var c=document.getElementById("c"+i);
         if(c!=null){
 
-            for(let j=1;j<=6;j++){
-                var s=document.getElementById("sem"+i+j);
-                if(s!=null){
-                    s.remove();
-                }
-            }
+            //quando se remove um elemento removem-se os seus filhos?
+            // for(let j=1;j<=6;j++){
+            //     var s=document.getElementById("sem"+i+j);
+            //     if(s!=null){
+            //         s.remove();
+            //     }
+            // }
             c.remove();
         }
     }
@@ -63,7 +47,7 @@ function addElements(){
     for(let i=1;i<=add_cav;i++){
         addCav(i,no_cav);
     }
-    //adicionar sementes a TODAS as cavidades (MAX 12)
+    //adicionar sementes a TODAS as cavidades (MAX C=12)
     // window.alert(no_cav);
     for(let i=1;i<=no_cav;i++){
         // window.alert(i);
@@ -97,7 +81,7 @@ function addCav(i,no_cav) {
     var id_up="c"+(no_cav+1-i), id_down="c"+i;
     cav.setAttribute("id", id_up);
     cav2.setAttribute("id", id_down);
-    window.alert("cav up: "+id_up+", cav_down: "+id_down);
+    // window.alert("cav up: "+id_up+", cav_down: "+id_down);
 }
 
 var end=false;
@@ -113,30 +97,35 @@ function give_up(){
 function game(){
     
     addElements();
-    //testing with c1
+
     var total_cavs=document.getElementById("num_cavidades_op").value*2;
+    // window.alert(total_cavs);
     for(let i=1;i<=total_cavs;i++){
         var cav_no = "c"+i;
         if(document.getElementById(cav_no)!=null){
-            document.getElementById(cav_no).addEventListener("click", clicking_cav);
+            
+            document.getElementById(cav_no).addEventListener("click", function(){
+                
+                if(this.hasChildNodes()){
+            
+                    var sementes = this.childNodes;
+                    // window.alert(sementes.length);
+                    var len=sementes.length;
+                    for(let j=1;j<=len;j++){
+
+                        var x = "c"+(i+j);
+                        //ver se dá a "volta"
+                        if(i+j>total_cavs){
+                            var x = "c"+(i+j-total_cavs);
+                        }
+                        // window.alert(x);
+                        document.getElementById(x).appendChild(sementes[0]);  
+                    }
+                }
+            });
         }
     }
     document.getElementById("giveup").addEventListener("click", give_up);
-}
-
-function clicking_cav(){
-
-    // window.alert("im here");
-    var x = document.getElementById("c1");
-    if(x.hasChildNodes()){
-
-        var sementes = x.childNodes;
-        // window.alert(sementes.length);
-        var len=sementes.length;
-        for(let i=0;i<len;i++){
-            document.getElementById("c2").appendChild(sementes[0]);  
-        }
-    }
 }
 
 function clicked(){
