@@ -21,10 +21,6 @@ function removeElements(){
     for(let i=1;i<=max_cav;i++){
         var c=document.getElementById("c"+i);
 
-        // if(i==a1 || i==no_cav+2){
-        //     console.log(i);
-        //     continue;
-        // }
         if(c!=null){
 
             //quando se remove um elemento removem-se os seus filhos?
@@ -36,6 +32,12 @@ function removeElements(){
             // }
             c.remove();
         }
+    }
+
+    //remover score
+    var s = document.getElementById("result");
+    if(s!=null){
+        s.remove();
     }
 
 }
@@ -173,6 +175,7 @@ function score(){
     const result = document.createElement("div");
     result.innerText = "Winner: " + winner;
     result.setAttribute("class","score_res");
+    result.setAttribute("id","result")
 
     document.getElementById("tabuleiro").appendChild(result);
 
