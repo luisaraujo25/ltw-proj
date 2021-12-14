@@ -14,10 +14,17 @@ close.addEventListener("click", () => {
 
 function removeElements(){
     
-    //12 é o num máx de cavidades por isso verifica todas
+    //14 é o num máx de cavidades por isso verifica todas (14=12 cavidades + 2 armazens)
     //6 é o num máx de sementes por isso verifica todas
-    for(let i=1;i<=12;i++){
+    const max_cav=14;
+
+    for(let i=1;i<=max_cav;i++){
         var c=document.getElementById("c"+i);
+
+        // if(i==a1 || i==no_cav+2){
+        //     console.log(i);
+        //     continue;
+        // }
         if(c!=null){
 
             //quando se remove um elemento removem-se os seus filhos?
@@ -27,9 +34,11 @@ function removeElements(){
             //         s.remove();
             //     }
             // }
+            console.log("c"+i);
             c.remove();
         }
     }
+
 }
 
 
@@ -37,20 +46,26 @@ function removeElements(){
 function addElements(){
 
     removeElements();
-
+    
     //adicionar as cavidades adicionais, por default sao 3
     var add_cav = document.getElementById("num_cavidades_op").value;
     var no_sem = document.getElementById("num_sementes_op").value;
-
     const no_cav = add_cav*2;
+    
+    //setId to storages
+    var id_armazem1 = addStorage(add_cav,no_cav);
 
     for(let i=1;i<=add_cav;i++){
         addCav(i,no_cav);
     }
     //adicionar sementes a TODAS as cavidades (MAX C=12)
     // window.alert(no_cav);
-    for(let i=1;i<=no_cav;i++){
+    for(let i=1;i<=no_cav+1;i++){
         // window.alert(i);
+        if(i==id_armazem1){
+            continue;
+        }
+
         for(let j=1;j<=no_sem;j++){
             addSem(i,j);
         }
@@ -78,13 +93,31 @@ function addCav(i,no_cav) {
     cav2.setAttribute("class","cavidade");
     document.getElementById('up_side').appendChild(cav);
     document.getElementById('down_side').appendChild(cav2);
-    var id_up="c"+(no_cav+1-i), id_down="c"+i;
+    var id_up="c"+(no_cav+2-i), id_down="c"+i;
     cav.setAttribute("id", id_up);
     cav2.setAttribute("id", id_down);
-    // window.alert("cav up: "+id_up+", cav_down: "+id_down);
 }
 
-var end=false;
+
+function addStorage(add_cav,no_cav){
+    
+    var id_armazem1=+add_cav+1, id_armazem2=no_cav+2;
+
+    var a1 = document.createElement("div");
+    var a2 = document.createElement("div");
+
+    a1.setAttribute("id","c"+id_armazem1); //direita
+    a2.setAttribute("id","c"+id_armazem2); //esquerda
+
+    a1.setAttribute("class","armazem");
+    a2.setAttribute("class","armazem");
+
+    document.getElementById("left_space").appendChild(a1);
+    document.getElementById("right_space").appendChild(a2);
+    // console.log(id_armazem1);
+
+    return id_armazem1;
+}
 
 function give_up(){
     // window.alert("desisti?");
@@ -98,14 +131,14 @@ function game(){
     
     addElements();
 
-    var total_cavs=document.getElementById("num_cavidades_op").value*2;
+    var total_cavs=document.getElementById("num_cavidades_op").value*2+2;
     // window.alert(total_cavs);
     for(let i=1;i<=total_cavs;i++){
         var cav_no = "c"+i;
         if(document.getElementById(cav_no)!=null){
             
             document.getElementById(cav_no).addEventListener("click", function(){
-                
+
                 if(this.hasChildNodes()){
             
                     var sementes = this.childNodes;
@@ -126,10 +159,6 @@ function game(){
         }
     }
     document.getElementById("giveup").addEventListener("click", give_up);
-}
-
-function clicked(){
-    window.alert("aqui");
 }
 
 function alertme(){

@@ -115,6 +115,20 @@ h1{
     justify-content: space-between;
 }
 
+#left_space{
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+}
+
+#right_space{
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+}
+
 
 .armazem{
     /* background-color: rgb(83, 79, 78); */
@@ -123,11 +137,12 @@ h1{
     width: 130px;
     height: 250px;
     border-radius: 20px;
-    display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .cavidade_space{
