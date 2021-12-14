@@ -34,7 +34,6 @@ function removeElements(){
             //         s.remove();
             //     }
             // }
-            console.log("c"+i);
             c.remove();
         }
     }
@@ -53,7 +52,7 @@ function addElements(){
     const no_cav = add_cav*2;
     
     //setId to storages
-    var id_armazem1 = addStorage(add_cav,no_cav);
+    var id_armazem2 = addStorage(add_cav,no_cav);
 
     for(let i=1;i<=add_cav;i++){
         addCav(i,no_cav);
@@ -62,7 +61,7 @@ function addElements(){
     // window.alert(no_cav);
     for(let i=1;i<=no_cav+1;i++){
         // window.alert(i);
-        if(i==id_armazem1){
+        if(i==id_armazem2){
             continue;
         }
 
@@ -101,7 +100,7 @@ function addCav(i,no_cav) {
 
 function addStorage(add_cav,no_cav){
     
-    var id_armazem1=+add_cav+1, id_armazem2=no_cav+2;
+    var id_armazem2=+add_cav+1, id_armazem1=no_cav+2;
 
     var a1 = document.createElement("div");
     var a2 = document.createElement("div");
@@ -116,7 +115,7 @@ function addStorage(add_cav,no_cav){
     document.getElementById("right_space").appendChild(a2);
     // console.log(id_armazem1);
 
-    return id_armazem1;
+    return id_armazem2;
 }
 
 function give_up(){
