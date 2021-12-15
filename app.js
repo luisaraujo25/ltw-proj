@@ -205,17 +205,17 @@ function game(){
             
             document.getElementById(cav_no).addEventListener("click", function(){
 
-                var msg;
-                if(pl1_turn==true){
-                    msg="pl1 turn";
-                }
-                else if(pl2_turn==true){
-                    msg="pl2 turn";
-                }
-                else{
-                    msg="error";
-                }
-                console.log(msg);
+                // var msg;
+                // if(pl1_turn==true){
+                //     msg="pl1 turn";
+                // }
+                // else if(pl2_turn==true){
+                //     msg="pl2 turn";
+                // }
+                // else{
+                //     msg="error";
+                // }
+                // console.log(msg);
                 
                 //verificar se o jogo já chegou ao fim
                 check_end(total_cavs);
@@ -328,6 +328,7 @@ function game(){
                             var armazem = document.getElementById("c"+total_cavs);
                             armazem.appendChild(opos_elem[0]);
                         }
+                        armazem.appendChild(document.getElementById("c"+last_cav_num).childNodes[0]);
                     }
                 }
             });
