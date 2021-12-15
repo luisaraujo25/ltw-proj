@@ -190,7 +190,8 @@ h1{
 .semente{
     width:10px;
     height:20px;
-    background-color: rgb(220, 245, 228);
+    /* background-color: rgb(220, 245, 228); */
+    background-color: rgb(60, 81, 119);
     border-radius: 50%;
     border-color: green;
     display:flex;

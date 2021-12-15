@@ -188,7 +188,6 @@ function game(){
 
     var total_cavs=document.getElementById("num_cavidades_op").value*2+2;
 
-    var end;
     //FAZER UMA JOGADA E ADICIONAR EVENT LISTENERS
     for(let i=1;i<=total_cavs;i++){
 
@@ -199,16 +198,62 @@ function game(){
             continue;
         }
 
+        var pl1_turn=true, pl2_turn=false, valid_turn=false;
+
         //verifica de o elementos existe
         if(document.getElementById(cav_no)!=null){
             
             document.getElementById(cav_no).addEventListener("click", function(){
+
+                var msg;
+                if(pl1_turn==true){
+                    msg="pl1 turn";
+                }
+                else if(pl2_turn==true){
+                    msg="pl2 turn";
+                }
+                else{
+                    msg="error";
+                }
+                console.log(msg);
                 
                 //verificar se o jogo já chegou ao fim
                 check_end(total_cavs);
-    
-                if(this.hasChildNodes()){
-            
+
+                var clicked_cav=this.id, id_num=clicked_cav[1];
+
+                //caso cav_id >= c10
+                if(clicked_cav.length>2){
+                    id_num+=clicked_cav[2];
+                }
+                //managing who plays
+                if(pl1_turn==true){
+
+                    // console.log("its me pl1");
+                    if(id_num>total_cavs/2){
+                        valid_turn=false;
+                    }
+                    else{
+                        valid_turn=true;
+                        pl1_turn=false;
+                        pl2_turn=true;
+                    }
+                }
+                else if(pl2_turn==true){
+
+                    // console.log("its me pl2");
+                    if(id_num<total_cavs/2){
+                        valid_turn=false;
+                    }
+                    else{
+                        valid_turn=true;
+                        pl1_turn=true;
+                        pl2_turn=false;
+                    }
+                }
+
+                if(this.hasChildNodes() && valid_turn==true){
+                    
                     var sementes = this.childNodes;
                     // window.alert(sementes.length);
                     var len=sementes.length;
@@ -221,6 +266,68 @@ function game(){
                         }
                         // window.alert(x);
                         document.getElementById(x).appendChild(sementes[0]);  
+                    }
+                    //verificar se tem condições para jogar novamente - x[1] é só o número do ID da cavidade
+                    //se esta foi a jogada do pl1 então esta variavel já está com o valor false, se for para jogar novamente
+                    //muda-se o seu valor para true
+                    //as duas primeiras condições verificam se a ultima semente calhou no armazem - VERIFICA PRIMEIRO
+                    //as duas ultimas verficam se a ultima semente calhou numa das cavidades (vazia) do player que tem vez nesse momento
+                    //aux representa a cavidade em que "caiu" a última semente da jogadas
+                    var last_cav_num=x[1];
+                    if(x.length>2){
+                        last_cav_num+=x[2];
+                    }
+
+                    //(...)-1 since after the play the last cavity will always have at least one seed
+                    var aux = document.getElementById(x).childNodes.length-1;
+                    
+                    console.log("LAST CAV NUM: "+last_cav_num);
+                    console.log("NO_SEEDS: "+aux);
+                    if(pl1_turn==false && last_cav_num==total_cavs/2){
+                        console.log("UHU P1");
+                        pl1_turn=true;
+                        pl2_turn=false;
+                    }
+                    else if(pl2_turn==false && last_cav_num==total_cavs){
+                        console.log("UHU P2");
+                        pl2_turn=true;
+                        pl1_turn=false;
+                    }
+                    else if(pl1_turn==false && last_cav_num<total_cavs/2 && !aux){
+                        
+                        console.log("tira todas");
+
+                        //declara opos_cav_num +/-total_cavs/2
+                        var opos_cav_num=total_cavs-last_cav_num;
+
+                        console.log("c"+opos_cav_num);
+                        var opos_elem = document.getElementById("c"+opos_cav_num).childNodes;
+                        // console.log("NO_SEEDS OPOS CAV: "+opos_elem.length);
+                        const aux_len=opos_elem.length;
+                        for(let k=0;k<aux_len;k++){
+                            console.log("K: "+k);
+                            var armazem = document.getElementById("c"+total_cavs/2);
+                            armazem.appendChild(opos_elem[0]);
+                        }
+                        //adicionar a ultima pedra da MINHA CAVIDADE ao meu armazem
+                        armazem.appendChild(document.getElementById("c"+last_cav_num).childNodes[0]);
+                    }
+                    else if(pl2_turn==false && last_cav_num>total_cavs/2 && !aux){
+
+                        console.log("tira todas");
+        
+                        //declara opos_cav_num +/-total_cavs/2
+                        var opos_cav_num=total_cavs-last_cav_num;
+
+                        console.log("c"+opos_cav_num);
+                        var opos_elem = document.getElementById("c"+opos_cav_num).childNodes;
+                        // console.log("NO_SEEDS OPOS CAV: "+opos_elem.length);
+                        const aux_len=opos_elem.length;
+                        for(let k=0;k<aux_len;k++){
+                            console.log("K: "+k);
+                            var armazem = document.getElementById("c"+total_cavs);
+                            armazem.appendChild(opos_elem[0]);
+                        }
                     }
                 }
             });
