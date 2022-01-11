@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
     <script type="text/javascript" src="app.js"></script>
     <script type ="text/javascript" src="request_exp.js"></script>
+    <script type ="text/javascript" src="rankings.js"></script>
 </head>
 <body>
 
@@ -25,10 +26,13 @@
     <form action="post">
         
         <label for="username">Username: </label>
-        <input type="text">
+        <input type="text" placeholder="Enter username" type="text" name="username" autocomplete="on">
 
         <label for="password">Password: </label>
-        <input type="text">
+        <input type="password" placeholder="Enter password" name ="password" minlength="8" autocomplete="off" required>
+
+
+        <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
         
         <button>Login</button>
     </form>
@@ -107,7 +111,7 @@
     </div>
     <br><br>
     <div id="extra">
-        <button class="button" id="scores">Classifições</button>
+        <button class="button" id="scores" onclick="displayRankings()">Classifições</button>
         <button class="button" id="giveup">Desistir</button>
     </div>
 </div>

@@ -61,7 +61,8 @@ h1{
 }
 
 #config{
-    width: 1200px;
+    width: 80%;
+    min-width: 820px;
     height: 60px;
     background-color: rgb(129, 129, 129);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
