@@ -12,6 +12,53 @@ close.addEventListener("click", () => {
 });
 
 
+//BOT - MINIMAX - MINIMIZE THE LOSS
+function mybot(){
+
+    const no_cavs = document.getElementById("num_cavidades_op").value;
+    var first_id = +no_cavs + 2;
+
+    var options = [], loss = [];
+
+    for(let i=0; i<no_cavs; i++){
+
+        var id_num = +first_id + i;
+        var id = "c" + id_num;
+        options[i] = document.getElementById(id).childNodes.length;
+        // console.log(options[i]);
+    }
+    loss(options, no_cavs);
+}
+
+function loss(options, no_cav){
+
+    const no_cav_total = no_cav*2+2;
+    var variation = [];
+    for(let i=0;i<no_cav;i++){
+
+        //distribui
+        // for(let j=0; j<options[i]; j++){
+        //     variation[i] = 
+
+        // }
+        
+    }
+}
+
+function turn_around(no_cav_total, cav_ini_id, no_childs){
+
+    var final_cav_id = cav_ini_id + no_childs;
+
+    while(final_cav_id>no_cav_total){
+        final_cav_id-=no_cav_total;
+    }
+
+    // console.log("c"+final_cav_id);
+
+    return final_cav_id;
+}
+
+
 function removeElements(){
     
     //14 é o num máx de cavidades por isso verifica todas (14=12 cavidades + 2 armazens)
@@ -260,8 +307,10 @@ function game(){
                         var x = "c"+(i+j);
                         //ver se dá a "volta"
                         if(i+j>total_cavs){
-                            var x = "c"+(i+j-total_cavs);
+                            var x = "c"+ turn_around(total_cavs, i, j);
                         }
+
+                        // var x = "c" + turn_around(total_cavs,i,len);
                         // window.alert(x);
                         document.getElementById(x).appendChild(sementes[0]);  
                     }

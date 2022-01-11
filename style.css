@@ -27,6 +27,8 @@ h1{
 #regras{
     display:flex;
     flex-direction: row;
+    justify-content: space-between;
+    padding-right: 2%;
 }
 
 #open{
