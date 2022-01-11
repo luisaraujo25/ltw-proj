@@ -1,30 +1,24 @@
 const url = "http://twserver.alunos.dcc.fc.up.pt:8008/";
 
-// fetch(url);
+async function getRankings(){
 
-const ranking = url + "ranking";
+    const ranking = url + "ranking";
+    const data = {};
+    
+    fetch(ranking, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
 
-async function getRankings() {
-    // let url = 'ranking.json';
-    try {
-        // let res = await fetch(url);
-        let res = await fetch(ranking);
-        return await res.json();
-    } catch (error) {
-        console.log(error);
-    }
+        console.log('Success:', data);
+        // console.log(data.ranking[0].games);
+
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
 
-const data = {};
-
-fetch(ranking, {
-  method: 'POST',
-  body: JSON.stringify(data),
-})
-.then(response => response.json())
-.then(data => {
-  console.log('Success:', data);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
+getRankings();
