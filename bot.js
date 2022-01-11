@@ -9,7 +9,7 @@ function myBot(){
     var max = 0;
     var better_option = first_id;
     
-    console.log("OPTION SEPARATOR ********");
+    // console.log("OPTION SEPARATOR ********");
 
     for(let i=0;i<no_cavs;i++){
         
@@ -17,18 +17,17 @@ function myBot(){
         no_sem = document.getElementById("c"+cav_id_num).childNodes.length;
 
         if(!no_sem){
-            console.log("not an option");
+            // console.log("not an option");
             continue;
         }
 
-        console.log("C"+cav_id_num+": "+no_sem+" SEMENTES");
+        // console.log("C"+cav_id_num+": "+no_sem+" SEMENTES");
 
         var count = after_play(no_sem, no_cavs, first_id, cav_id_num+1);
 
         if(count>max){
             max = count
             better_option = first_id+i;
-            console.log("AQUI");
         }
     }
 
@@ -41,7 +40,7 @@ function myBot(){
 function after_play(no_sem, no_cavs, first_id, cav_id_num){
     
     const no_cavs_total = no_cavs*2+2;
-    console.log("AFTER PLAY:");
+    // console.log("AFTER PLAY:");
     var count = - no_sem;
     //o indice de aux o id das cavidades e o valor de cada elemento é o numero de sementes com que ficaria
     var aux = [];
@@ -77,11 +76,11 @@ function after_play(no_sem, no_cavs, first_id, cav_id_num){
         var sum = aux[i] + document.getElementById("c"+i).childNodes.length;
 
         if(myCavs(first_id,no_cavs_total,i)){
-            console.log("CAV"+i+"= "+(document.getElementById("c"+i).childNodes.length+aux[i]));
+            // console.log("CAV"+i+"= "+(document.getElementById("c"+i).childNodes.length+aux[i]));
             count += sum;
         }
     }
-    console.log(count);
+    // console.log(count);
 
     return count;
 } 

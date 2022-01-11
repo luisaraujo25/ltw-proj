@@ -17,20 +17,22 @@ function announce_winner(total_cavs){
 
     //se acabar verifica quem ganha
     if(!acc1 || !acc2){
-
+        
         console.log("ganhei");
         score();
     }
 }
 
 function doSomething() {
-   //do whatever you want here
+    //do whatever you want here
     console.log("ESPEREI");
 }
 
 function after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_turn, valid_turn){
-
+    
+    console.log("C4: "+document.getElementById("c4").childNodes.length);
     const element = document.getElementById(chosen_cavity);
+
     if(element.hasChildNodes() && valid_turn==true){
                     
         var sementes = element.childNodes;
@@ -76,7 +78,7 @@ function after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_
             //declara opos_cav_num +/-total_cavs/2
             var opos_cav_num=total_cavs-last_cav_num;
 
-            console.log("c"+opos_cav_num);
+            // console.log("c"+opos_cav_num);
             var opos_elem = document.getElementById("c"+opos_cav_num).childNodes;
 
             var armazem_number=total_cavs;
@@ -112,7 +114,7 @@ function game(){
 
     var bot = false;
 
-    if(no_players == "2"){
+    if(no_players == "1"){
         bot = true;
     }
 
@@ -181,7 +183,7 @@ function game(){
                 else{
                     chosen_cavity = this.id;
                 }
-                console.log(chosen_cavity);
+                // console.log(chosen_cavity);
                 
                 // setTimeout(doSomething, 3000);
                 const value = after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_turn, valid_turn);
