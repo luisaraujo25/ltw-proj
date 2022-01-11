@@ -25,7 +25,7 @@ function announce_winner(total_cavs){
 
 
 function game(){
-    
+
     addElements();
 
     var total_cavs=document.getElementById("num_cavidades_op").value*2+2;
@@ -46,7 +46,7 @@ function game(){
         if(document.getElementById(cav_no)!=null){
             
             document.getElementById(cav_no).addEventListener("click", function(){
-                
+
                 var clicked_cav=this.id, id_num=clicked_cav[1];
 
                 //caso cav_id >= c10
@@ -68,6 +68,7 @@ function game(){
                 }
                 else if(pl2_turn==true){
 
+                    mybot();
                     // console.log("its me pl2");
                     if(id_num<total_cavs/2){
                         valid_turn=false;

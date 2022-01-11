@@ -4,29 +4,82 @@ function mybot(){
     const no_cavs = document.getElementById("num_cavidades_op").value;
     var first_id = +no_cavs + 2;
 
-    var options = [], loss = [];
+    // console.log(first_id);
 
-    for(let i=0; i<no_cavs; i++){
+    var max = 0;
+    var better_option = first_id;
+    
+    for(let i=0;i<no_cavs;i++){
+        
+        cav_id_num = first_id + i;
+        no_sem = document.getElementById("c"+cav_id_num).childNodes.length;
 
-        var id_num = +first_id + i;
-        var id = "c" + id_num;
-        options[i] = document.getElementById(id).childNodes.length;
-        // console.log(options[i]);
+        console.log("C"+cav_id_num+": "+no_sem+" SEMENTES");
+
+        var count = after_play(no_sem, no_cavs, first_id, cav_id_num+1);
+
+        if(count>max){
+            max = count
+            better_option = first_id+i;
+            console.log("AQUI");
+        }
     }
-    loss(options, no_cavs);
+
+    console.log("CAVIDADE ESCOLHIDA: c"+ better_option);
 }
 
-function loss(options, no_cav){
+function after_play(no_sem, no_cavs, first_id, cav_id_num){
+    
+    const no_cavs_total = no_cavs*2+2;
+    console.log("AFTER PLAY:");
+    var count = - no_sem;
+    //o indice de aux o id das cavidades e o valor de cada elemento é o numero de sementes com que ficaria
+    var aux = [];
 
-    const no_cav_total = no_cav*2+2;
-    var variation = [];
-    for(let i=0;i<no_cav;i++){
+    //initializing aux
+    for(let i=1;i<=no_cavs_total;i++){
+        aux[i]=0;
+    }
+    //retirar as sementes da cavidade de onde vao ser distribuidas
+    aux[cav_id_num-1]-=no_sem;
 
-        //distribui
-        // for(let j=0; j<options[i]; j++){
-        //     variation[i] = 
+    var count = 0;
 
-        // }
+    for(let i = 0; i < no_sem; i++){
+
+        while(cav_id_num>no_cavs_total){
+            // console.log("ALTEREI DE: "+cav_id_num);
+            cav_id_num-=(no_cavs*2+2);
+            // console.log("PARA: "+cav_id_num);
+        }
+        
+        var this_cav = document.getElementById("c"+cav_id_num);
+
+        aux[cav_id_num] += 1;
+        // console.log("RESULT C" + cav_id_num + ": " + aux[cav_id_num]);
+        cav_id_num += 1;
+        // console.log(cav_id_num);
         
     }
+
+    for(let i=1; i<=no_cavs_total; i++){
+        if(myCavs(first_id,no_cavs_total,i)){
+            console.log("CAV"+i+"= "+(document.getElementById("c"+i).childNodes.length+aux[i]));
+            count += aux[i] + document.getElementById("c"+i).childNodes.length;
+        }
+    }
+    console.log(count);
+
+    return count;
+} 
+
+//bot é uma variável boolean
+function myCavs(first_id, no_cavs_total, cav_id){
+
+    var bot=false;
+    if(cav_id>=first_id && cav_id<=no_cavs_total){
+        bot = true;
+    }
+
+    return bot;
 }
