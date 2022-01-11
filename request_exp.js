@@ -45,6 +45,6 @@ async function login(){
     });
 }
 
-getRankings();
+// getRankings();
 
-login();
+// login();
