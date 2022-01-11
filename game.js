@@ -28,7 +28,15 @@ function game(){
 
     addElements();
 
-    var total_cavs=document.getElementById("num_cavidades_op").value*2+2;
+    const total_cavs = document.getElementById("num_cavidades_op").value*2+2;
+
+    const no_players = document.getElementById("num_players_op").value;
+
+    var bot = false;
+
+    if(no_players == "2"){
+        bot = true;
+    }
 
     //FAZER UMA JOGADA E ADICIONAR EVENT LISTENERS
     for(let i=1;i<=total_cavs;i++){
