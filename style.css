@@ -24,7 +24,7 @@ h1{
     text-decoration-thickness: 3px;
 }
 
-#regras{
+#header{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
