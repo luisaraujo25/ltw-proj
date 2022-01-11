@@ -1,11 +1,9 @@
-
-
 function give_up(){
-    // window.alert("desisti?");
+    //if we remove all cavities then their event listeners will be removed as well
     removeElements();
 }
 
-function check_end(total_cavs){
+function announce_winner(total_cavs){
     
     //o jogo acaba quando pelo menos um dos jogadores já não tiver mais jogadas possíveis
     //verificar as cavidades de baixo
@@ -21,7 +19,7 @@ function check_end(total_cavs){
     if(!acc1 || !acc2){
 
         console.log("ganhei");
-        document.getElementById("tabuleiro").addEventListener("click",score);
+        score();
     }
 }
 
@@ -151,10 +149,9 @@ function game(){
                 }
 
                 //verificar se o jogo já chegou ao fim
-                check_end(total_cavs);
+                announce_winner(total_cavs);
             });
         }
     }
-
     document.getElementById("giveup").addEventListener("click", give_up);
 }

@@ -26,8 +26,11 @@ async function login(){
     const data = {nick: 'user16273', password: 'pass'};
     const login_url = url + "register";
 
-    const username = document.getElementById("username");
-    // console.log(username);
+    const username = document.getElementsByName("username");
+    console.log(username.value);
+
+    // const username = document.getElementsByName("username").value;
+    // const password = document.getElementsByName("password").value;
     
     
     fetch(login_url, {
@@ -46,5 +49,3 @@ async function login(){
 }
 
 // getRankings();
-
-// login();

@@ -32,6 +32,4 @@ function score(){
     result.setAttribute("id","result")
 
     document.getElementById("tabuleiro").appendChild(result);
-
-    document.getElementById("tabuleiro").removeEventListener("click",score);
 }

@@ -10,7 +10,7 @@
 
     <!-- JAVASCRIPT FILES -->
     <script type="text/javascript" src="game.js"></script>
-    <script type ="text/javascript" src="request_exp.js"></script>
+    <script type ="text/javascript" src="requests.js"></script>
     <script type ="text/javascript" src="rankings.js"></script>
     <script type ="text/javascript" src="utils.js"></script>
     <script type ="text/javascript" src="bot.js"></script>
@@ -29,18 +29,16 @@
             Regras
         </button>
     </div>
-    <form action="post">
+    <form action="requests.js" method="post" id="login_form">
         
         <label for="username">Username: </label>
         <input type="text" placeholder="Enter username" type="text" name="username" autocomplete="on">
 
         <label for="password">Password: </label>
         <input type="password" placeholder="Enter password" name ="password" minlength="8" autocomplete="off" required>
-
-
         <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
         
-        <button>Login</button>
+        <button onclick="">Login</button>
     </form>
 </div>
 
