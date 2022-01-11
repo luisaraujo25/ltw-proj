@@ -1,5 +1,5 @@
 //BOT - MINIMAX - MINIMIZE THE LOSS
-function mybot(){
+function myBot(){
 
     const no_cavs = document.getElementById("num_cavidades_op").value;
     var first_id = +no_cavs + 2;
@@ -33,6 +33,9 @@ function mybot(){
     }
 
     console.log("CAVIDADE ESCOLHIDA: c"+ better_option);
+
+    //retornar a cavidade escolhida
+    return ("c"+better_option);
 }
 
 function after_play(no_sem, no_cavs, first_id, cav_id_num){
