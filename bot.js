@@ -9,10 +9,17 @@ function mybot(){
     var max = 0;
     var better_option = first_id;
     
+    console.log("OPTION SEPARATOR ********");
+
     for(let i=0;i<no_cavs;i++){
         
         cav_id_num = first_id + i;
         no_sem = document.getElementById("c"+cav_id_num).childNodes.length;
+
+        if(!no_sem){
+            console.log("not an option");
+            continue;
+        }
 
         console.log("C"+cav_id_num+": "+no_sem+" SEMENTES");
 
@@ -63,9 +70,12 @@ function after_play(no_sem, no_cavs, first_id, cav_id_num){
     }
 
     for(let i=1; i<=no_cavs_total; i++){
+
+        var sum = aux[i] + document.getElementById("c"+i).childNodes.length;
+
         if(myCavs(first_id,no_cavs_total,i)){
             console.log("CAV"+i+"= "+(document.getElementById("c"+i).childNodes.length+aux[i]));
-            count += aux[i] + document.getElementById("c"+i).childNodes.length;
+            count += sum;
         }
     }
     console.log(count);
