@@ -104,7 +104,7 @@ h1{
 
 #tabuleiro{
     /*background-color: rgb(95, 20, 20);*/
-    background-image: url(text.jpg);
+    background-image: url(images/text.jpg);
     background-repeat: round;
     width: 800px;
     height: 300px;
