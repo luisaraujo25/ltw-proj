@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
 
     <!-- JAVASCRIPT FILES -->
-    <script type="text/javascript" src="game.js"></script>
-    <script type ="text/javascript" src="requests.js"></script>
-    <script type ="text/javascript" src="rankings.js"></script>
-    <script type ="text/javascript" src="utils.js"></script>
-    <script type ="text/javascript" src="bot.js"></script>
-    <script type ="text/javascript" src="elements.js"></script>
+    <script type="text/javascript" src="game.js" defer></script>
+    <script type ="text/javascript" src="requests.js" defer></script>
+    <script type ="text/javascript" src="rankings.js" defer></script>
+    <script type ="text/javascript" src="utils.js" defer></script>
+    <script type ="text/javascript" src="bot.js" defer></script>
+    <script type ="text/javascript" src="elements.js" defer></script>
 
 </head>
 <body>
@@ -29,16 +29,16 @@
             Regras
         </button>
     </div>
-    <form action="requests.js" method="post" id="login_form">
+    <form id="login_form">
         
         <label for="username">Username: </label>
-        <input type="text" placeholder="Enter username" type="text" name="username" autocomplete="on">
+        <input type="text" placeholder="Enter username" type="text" name="username" autocomplete="on" id="nick">
 
         <label for="password">Password: </label>
-        <input type="password" placeholder="Enter password" name ="password" minlength="8" autocomplete="off" required>
+        <input type="password" placeholder="Enter password" name ="password" id="password" autocomplete="off" required>
         <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
         
-        <button onclick="">Login</button>
+        <button id="login">Login</button>
     </form>
 </div>
 
@@ -115,10 +115,11 @@
     </div>
     <br><br>
     <div id="extra">
-        <button class="button" id="scores" onclick="displayRankings()">Classifições</button>
+        <button class="button" id="scores">Classifições</button>
         <button class="button" id="giveup">Desistir</button>
     </div>
 </div>
 <p>Go back to the <a href="#top">top</a></p>
+<div id="messages"></div>
 </body>
 </html>
