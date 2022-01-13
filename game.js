@@ -53,7 +53,6 @@ function after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl
             pl2_turn=false;
         }   
     }
-    console.log(pl1_turn);
     
     const element = document.getElementById(chosen_cavity);
 
@@ -147,17 +146,18 @@ function do_play(bot, pl1_turn, pl2_turn, cavity_number){
     const value = after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn);
     
     //verificar se o jogo já chegou ao fim
-    var game_loop = announce_winner(total_cavs);
+    announce_winner(total_cavs);
 
     //the bot chooses and clicks on the cavity
-    if(bot && pl2_turn){
-        var chosen_cavity = myBot();
-        
+    console.log("PL1: "+value.pl1 + ", PL2: "+value.pl2);
+    if(bot && value.pl2){
+        var cavity_number = myBot();
+        // console.log("c"+cavity_number);
         document.getElementById("c"+cavity_number).click();
+        // console.log("CLICK");
     }
     return value;
 }
-
 
 var value_turn;
 
@@ -212,7 +212,6 @@ function game(){
     }
 
     if(bot && !pl1_turn){
-        // console.log("OLA");
         cavity_number = myBot();
         document.getElementById("c"+cavity_number).click();
     }
