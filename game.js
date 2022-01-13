@@ -104,102 +104,115 @@ function after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_
     return pl1_turn;
 }
 
+function do_play(bot, pl1_turn, pl2_turn, cavity_number){
+
+    // console.log("ola");
+    const total_cavs = document.getElementById("num_cavidades_op").value*2+2;
+    var chosen_cavity = "c"+cavity_number;
+    //esta condição impede adicionar evenlisteners para os armazens
+    if(cavity_number==total_cavs/2 || cavity_number==total_cavs){
+        return;
+    }
+
+    //managing who plays
+    if(pl1_turn==true){
+        
+        console.log("its me pl1");
+        if(id_num>total_cavs/2){
+            valid_turn=false;
+        }
+        else{
+            valid_turn=true;
+            pl1_turn=false;
+            pl2_turn=true;
+        }
+    }
+    else if(pl2_turn==true){
+        
+        console.log("its me pl2");
+        if(cavity_number<total_cavs/2){
+            valid_turn=false;
+        }
+        else{
+            valid_turn=true;
+            pl1_turn=true;
+            pl2_turn=false;
+        }
+    }
+    var chosen_cavity;
+    if(bot){
+        var chosen_cavity = myBot();
+        document.getElementById(chosen_cavity).click();
+        
+    }
+    else{
+        chosen_cavity = this.id;
+    }
+    // console.log(chosen_cavity);
+    
+    // setTimeout(doSomething, 3000);
+    const value = after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_turn, valid_turn);
+
+    if(value == true){
+        pl1_turn = true;
+        pl2_turn = false;
+    }
+    else{
+        pl1_turn = false;
+        pl2_turn = true;
+    }
+
+    //verificar se o jogo já chegou ao fim
+    var game_loop = announce_winner(total_cavs);
+}
+
+
+
+
 function game(){
 
     addElements();
+        
+    document.getElementById("giveup").addEventListener("click", give_up);
 
     const total_cavs = document.getElementById("num_cavidades_op").value*2+2;
 
     const no_players = document.getElementById("num_players_op").value;
 
-    var bot = false;
+    //starting
+    const player_starting = document.getElementById("starting_op").value;
 
+    var pl1_turn = true;
+    if(player_starting=="player2") pl1_turn=false;
+
+    //o jogo por default começa com 2 jogadores -> PLAYER VS PLAYER
+    var bot = false;
+    //caso o utilizador mude o número players para 1 -> PLAYER VS BOT
     if(no_players == "1"){
         bot = true;
     }
 
+    //
     if(bot){
-        const starting = document.getElementById("starting_op").value;
-        var bot_starting = false;
         if(starting == "computador"){
-            bot_starting = true;
+
+            const cavity_number = myBot();
+            do_play(bot, pl1_turn, !pl1_turn, cavity_number);
         }
     }
-
     //FAZER UMA JOGADA E ADICIONAR EVENT LISTENERS
     for(let i=1;i<=total_cavs;i++){
-
-        var cav_no = "c"+i;
-        // console.log("ola");
-        //esta condição impede adicionar evenlisteners para os armazens
-        if(i==total_cavs/2 || i==total_cavs){
-            continue;
-        }
-
-        var pl1_turn=true, pl2_turn=false, valid_turn=false;
 
         //verifica de o elementos existe
         if(document.getElementById(cav_no)!=null){
             
             document.getElementById(cav_no).addEventListener("click", function(){
-
-                var clicked_cav=this.id, id_num=clicked_cav[1];
-                
-                //caso cav_id >= c10
-                if(clicked_cav.length>2){
-                    id_num+=clicked_cav[2];
-                }
-                //managing who plays
-                if(pl1_turn==true){
-                    
-                    console.log("its me pl1");
-                    if(id_num>total_cavs/2){
-                        valid_turn=false;
-                    }
-                    else{
-                        valid_turn=true;
-                        pl1_turn=false;
-                        pl2_turn=true;
-                    }
-                }
-                else if(pl2_turn==true){
-                    
-                    console.log("its me pl2");
-                    if(id_num<total_cavs/2){
-                        valid_turn=false;
-                    }
-                    else{
-                        valid_turn=true;
-                        pl1_turn=true;
-                        pl2_turn=false;
-                    }
-                }
-                var chosen_cavity;
-                if(bot){
-                    var chosen_cavity = myBot();
-                    document.getElementById(chosen_cavity).click();
-                    
-                }
-                else{
-                    chosen_cavity = this.id;
-                }
-                // console.log(chosen_cavity);
-                
-                // setTimeout(doSomething, 3000);
-                const value = after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_turn, valid_turn);
-
-                if(value == true){
-                    pl1_turn = true;
-                    pl2_turn = false;
-                }
-                else{
-                    pl1_turn = false;
-                    pl2_turn = true;
-                }
-                //verificar se o jogo já chegou ao fim
-                announce_winner(total_cavs);
+                do_play(bot, pl1_turn, !pl1_turn, i);
             });
         }
     }
-    document.getElementById("giveup").addEventListener("click", give_up);
+}
+
+function manage_turn(){
+
 }

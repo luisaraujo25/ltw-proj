@@ -34,7 +34,7 @@ function myBot(){
     console.log("CAVIDADE ESCOLHIDA: c"+ better_option);
 
     //retornar a cavidade escolhida
-    return ("c"+better_option);
+    return (better_option);
 }
 
 function after_play(no_sem, no_cavs, first_id, cav_id_num){
