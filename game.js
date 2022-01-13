@@ -28,9 +28,33 @@ function doSomething() {
     console.log("ESPEREI");
 }
 
-function after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_turn, valid_turn){
+function after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn){
+
+    if(pl1_turn){
+        
+        console.log("its me pl1");
+        if(cavity_number>total_cavs/2){
+            valid_turn=false;
+        }
+        else{
+            valid_turn=true;
+            pl1_turn=false;
+            pl2_turn=true;
+        }
+    }
+    else{
+        console.log("its me pl2");
+        if(cavity_number<total_cavs/2){
+            valid_turn=false;
+        }
+        else{
+            valid_turn=true;
+            pl1_turn=true;
+            pl2_turn=false;
+        }   
+    }
+    console.log(pl1_turn);
     
-    console.log("C4: "+document.getElementById("c4").childNodes.length);
     const element = document.getElementById(chosen_cavity);
 
     if(element.hasChildNodes() && valid_turn==true){
@@ -40,10 +64,10 @@ function after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_
         var len=sementes.length;
         for(let j=1;j<=len;j++){
 
-            var x = "c"+(i+j);
+            var x = "c"+(cavity_number+j);
             //ver se dá a "volta"
-            if(i+j>total_cavs){
-                var x = "c"+ turn_around(total_cavs, i, j);
+            if(cavity_number+j>total_cavs){
+                var x = "c"+ turn_around(total_cavs, cavity_number, j);
             }
 
             // var x = "c" + turn_around(total_cavs,i,len);
@@ -101,73 +125,41 @@ function after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_
             //adicionar a ultima pedra da MINHA CAVIDADE ao meu armazem
         }
     }
-    return pl1_turn;
+    return {valid: valid_turn, pl1: pl1_turn, pl2: pl2_turn};
 }
 
 function do_play(bot, pl1_turn, pl2_turn, cavity_number){
 
-    // console.log("ola");
+    
+    // console.log(cavity_number);
+
     const total_cavs = document.getElementById("num_cavidades_op").value*2+2;
     var chosen_cavity = "c"+cavity_number;
     //esta condição impede adicionar evenlisteners para os armazens
-    if(cavity_number==total_cavs/2 || cavity_number==total_cavs){
-        return;
-    }
+    
 
     //managing who plays
-    if(pl1_turn==true){
-        
-        console.log("its me pl1");
-        if(id_num>total_cavs/2){
-            valid_turn=false;
-        }
-        else{
-            valid_turn=true;
-            pl1_turn=false;
-            pl2_turn=true;
-        }
-    }
-    else if(pl2_turn==true){
-        
-        console.log("its me pl2");
-        if(cavity_number<total_cavs/2){
-            valid_turn=false;
-        }
-        else{
-            valid_turn=true;
-            pl1_turn=true;
-            pl2_turn=false;
-        }
-    }
-    var chosen_cavity;
-    if(bot){
-        var chosen_cavity = myBot();
-        document.getElementById(chosen_cavity).click();
-        
-    }
-    else{
-        chosen_cavity = this.id;
-    }
-    // console.log(chosen_cavity);
     
     // setTimeout(doSomething, 3000);
-    const value = after_clicking(chosen_cavity, i, valid_turn, total_cavs, pl1_turn, pl2_turn, valid_turn);
+    // console.log(pl1_turn);
+    var valid_turn = false;
 
-    if(value == true){
-        pl1_turn = true;
-        pl2_turn = false;
-    }
-    else{
-        pl1_turn = false;
-        pl2_turn = true;
-    }
-
+    const value = after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn);
+    
     //verificar se o jogo já chegou ao fim
     var game_loop = announce_winner(total_cavs);
+
+    //the bot chooses and clicks on the cavity
+    if(bot && pl2_turn){
+        var chosen_cavity = myBot();
+        
+        document.getElementById("c"+cavity_number).click();
+    }
+    return value;
 }
 
 
-
+var value_turn;
 
 function game(){
 
@@ -184,7 +176,6 @@ function game(){
 
     var pl1_turn = true;
     if(player_starting=="player2") pl1_turn=false;
-
     //o jogo por default começa com 2 jogadores -> PLAYER VS PLAYER
     var bot = false;
     //caso o utilizador mude o número players para 1 -> PLAYER VS BOT
@@ -192,24 +183,38 @@ function game(){
         bot = true;
     }
 
-    //
-    if(bot){
-        if(starting == "computador"){
+    var cavity_number;
+    var first_play = true;
 
-            const cavity_number = myBot();
-            do_play(bot, pl1_turn, !pl1_turn, cavity_number);
-        }
-    }
-    //FAZER UMA JOGADA E ADICIONAR EVENT LISTENERS
+    //ADICIONAR EVENT LISTENERS
     for(let i=1;i<=total_cavs;i++){
 
         //verifica de o elementos existe
-        if(document.getElementById(cav_no)!=null){
+        if(document.getElementById("c"+i)!=null){
             
-            document.getElementById(cav_no).addEventListener("click", function(){
-                do_play(bot, pl1_turn, !pl1_turn, i);
+            document.getElementById("c"+i).addEventListener("click", function(){
+                
+                if(i==total_cavs/2 || i==total_cavs){
+                    return;
+                }
+
+                if(first_play){
+                    first_play = false;
+                }
+                else{
+                    pl1_turn = value_turn.pl1;
+                }
+
+                cavity_number = i;
+                value_turn = do_play(bot, pl1_turn, !pl1_turn, cavity_number);
             });
         }
+    }
+
+    if(bot && !pl1_turn){
+        // console.log("OLA");
+        cavity_number = myBot();
+        document.getElementById("c"+cavity_number).click();
     }
 }
 
