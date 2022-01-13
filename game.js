@@ -201,10 +201,10 @@ function game(){
                 if(first_play){
                     first_play = false;
                 }
-                else{
+                else if(!first_play){
                     pl1_turn = value_turn.pl1;
                 }
-
+                console.log("ARMAZEM 1 " + document.getElementById("c4").childNodes.length);
                 cavity_number = i;
                 value_turn = do_play(bot, pl1_turn, !pl1_turn, cavity_number);
             });
