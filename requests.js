@@ -1,11 +1,11 @@
 const URL = "http://twserver.alunos.dcc.fc.up.pt:8008/";
 
-const group = 247; // Número do grupo para emparelhamento para debugging (usem o vosso)
+const group = 150; // Número do grupo para emparelhamento para debugging (usem o vosso)
 
 let nick     = null; // Nick do jogador
 let password = null; // Pass do jogador
-let size     = null; // Número de cavidades (sem armazéns)
-let initial  = null; // Número de sementes por cavidade
+let size     = document.getElementById('num_cavidades_op').value; // Número de cavidades (sem armazéns)
+let initial  = document.getElementById('num_sementes_op').value; // Número de sementes por cavidade
 let gameId     = null; // Id do jogo
 
 const nickInput = document.getElementById('nick');
@@ -69,6 +69,7 @@ function login(){
 }
 
 function joinGame(){
+  console.log(group + nick + password + size + initial);
   const config = {group, nick, password, size, initial};
   fetch(URL + 'join', {
     'method': 'POST',
