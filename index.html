@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">
 
     <!-- JAVASCRIPT FILES -->
-    <script type="text/javascript" src="game.js" defer></script>
-    <script type ="text/javascript" src="requests.js" defer></script>
-    <script type ="text/javascript" src="rankings.js" defer></script>
-    <script type ="text/javascript" src="utils.js" defer></script>
-    <script type ="text/javascript" src="bot.js" defer></script>
-    <script type ="text/javascript" src="elements.js" defer></script>
+    <script src="game.js" defer></script>
+    <script src="requests.js" defer></script>
+    <script src="rankings.js" defer></script>
+    <script src="utils.js" defer></script>
+    <script src="bot.js" defer></script>
+    <script src="elements.js" defer></script>
 
 </head>
 <body>
@@ -32,7 +32,7 @@
     <fieldset id="login_form">
         
         <label for="username">Username: </label>
-        <input type="text" placeholder="Enter username" type="text" name="username" autocomplete="on" id="nick">
+        <input type="text" placeholder="Enter username" name="username" autocomplete="on" id="username">
 
         <label for="password">Password: </label>
         <input type="password" placeholder="Enter password" name ="password" id="password" autocomplete="off" required>
@@ -63,7 +63,7 @@
 
 <div id="config">
     <div class="general" id="n_sem">
-        <p>Número de sementes:&nbsp&nbsp</p>
+        <p>Número de sementes:&nbsp;&nbsp;</p>
         <select class="option" id="num_sementes_op">
             <option value="4">4</option>
             <option value="5">5</option>
@@ -71,7 +71,7 @@
           </select>
     </div>
     <div class="general" id="n_cav">
-        <p>Número de cavidades:&nbsp&nbsp</p>
+        <p>Número de cavidades:&nbsp;&nbsp;</p>
         <select class="option" id="num_cavidades_op">
             <option value="3">3</option>
             <option value="4">4</option>
@@ -80,14 +80,14 @@
           </select>
     </div>
     <div class="general" id="n_pl">
-        <p>Número de jogadores:&nbsp&nbsp</p>
+        <p>Número de jogadores:&nbsp;&nbsp;</p>
         <select class="option" id="num_players_op">
             <option value="1">1</option>
             <option value="2" selected>2</option>
           </select>
     </div>
     <div class="general" id="start">
-        <p>Quem começa:&nbsp&nbsp</p>
+        <p>Quem começa:&nbsp;&nbsp;</p>
         <select class="option" id="starting_op">
             <option value="user">User</option>
             <option value="computador">Computador</option>

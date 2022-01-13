@@ -13,7 +13,7 @@ nickInput.addEventListener('change', (evt) => nick = evt.target.value);
 
 const passwordInput = document.getElementById('password');
 passwordInput.addEventListener('change', (evt) => password = evt.target.value);
-
+  
 const loginButton = document.getElementById('login');
 loginButton.addEventListener('click', login);
 
