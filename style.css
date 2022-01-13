@@ -19,7 +19,6 @@ h1{
 #main_title{    
     text-decoration-line: underline;
     text-decoration-color: rgb(36, 122, 33);
-    text-shadow: 10px;
     text-decoration-style: wavy;
     text-decoration-thickness: 3px;
 }
