@@ -125,6 +125,9 @@ function game(){
             bot_starting = true;
         }
     }
+    else{
+        startOnlineGame();
+    }
 
     //FAZER UMA JOGADA E ADICIONAR EVENT LISTENERS
     for(let i=1;i<=total_cavs;i++){
@@ -182,6 +185,7 @@ function game(){
                 }
                 else{
                     chosen_cavity = this.id;
+                    console.log(chosen_cavity);
                 }
                 // console.log(chosen_cavity);
                 
