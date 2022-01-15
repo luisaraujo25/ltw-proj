@@ -185,6 +185,17 @@ function game(){
 
     var cavity_number;
     var first_play = true;
+    
+    if(bot){
+        const starting = document.getElementById("starting_op").value;
+        var bot_starting = false;
+        if(starting == "computador"){
+            bot_starting = true;
+        }
+    }
+    else{
+        startOnlineGame();
+    }
 
     //ADICIONAR EVENT LISTENERS
     for(let i=1;i<=total_cavs;i++){

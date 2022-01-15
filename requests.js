@@ -7,8 +7,10 @@ let password = null; // Pass do jogador
 let size     = document.getElementById('num_cavidades_op').value; // Número de cavidades (sem armazéns)
 let initial  = document.getElementById('num_sementes_op').value; // Número de sementes por cavidade
 let gameId     = null; // Id do jogo
+let players = document.getElementById('num_players_op').value;
+let sse = null;
 
-const nickInput = document.getElementById('nick');
+const nickInput = document.getElementById('username');
 nickInput.addEventListener('change', (evt) => nick = evt.target.value);
 
 const passwordInput = document.getElementById('password');
@@ -28,6 +30,38 @@ initialInput.addEventListener('change', (evt) => initial = evt.target.value);
 
 const playButton = document.getElementById('refresh');
 playButton.addEventListener('click', joinGame);
+
+const numPlayers = document.getElementById('num_players_op');
+numPlayers.addEventListener('change', (evt) => players = evt.target.value);
+
+
+function startOnlineGame(){
+
+  if(sse !== null && sse.readyState !== 2){
+    sse.close();
+  }
+
+  sse = new EventSource(URL + "update?nick=" + nick + "&game=" + gameId);
+  sse.onmessage = handleUpdate;
+  showMessages("Awaiting remote player...");
+
+}
+
+function handleUpdate(msg){
+  const message = JSON.parse(msg.data);
+  console.log(message);
+  if("board" in message){
+    if("turn" in message.board){
+      console.log(message.board);
+      showMessages(`It's ${message.board.turn} turn to play`);
+    }
+  }
+  if("winner" in message){
+    showMessages(`${message.winner} wins!`);
+    sse.close();
+  }
+}
+
 
 function getRankings(){
 
@@ -58,33 +92,37 @@ function login(){
 		'body': JSON.stringify(credentials)
   })
   .then(response => response.json())
-  .then(jsonData => {
-    if('error' in jsonData) {
-      showMessages(jsonData.error);
-    } else {
-      showMessages('Login successful!');
-    }
-  })
-  .catch(error => console.log(error));
+  .then((json) => showMessages(json))
+  .catch(error => showMessages(error));
 }
 
+
 function joinGame(){
-  console.log(group + nick + password + size + initial);
-  const config = {group, nick, password, size, initial};
-  fetch(URL + 'join', {
-    'method': 'POST',
-		'body': JSON.stringify(config)
-  })
-  .then(response => response.json())
-  .then(jsonData => {
-    if('error' in jsonData) {
-      showMessages(jsonData.error);
-    } else {
-      gameId = jsonData.game;
-      showMessages('New game created. ID: ', gameId);
+  //console.log(group + nick + password + size + initial); debug
+  if(players == 2){
+    if(nick && password){
+      const config = {group, nick, password, size, initial};
+      fetch(URL + 'join', {
+        'method': 'POST',
+        'body': JSON.stringify(config)
+      })
+      .then(response => response.json())
+      .then((json) => {
+        showMessages(json);
+        if("game" in json){
+          gameId = json.game;
+          game();
+        }
+      })
+      .catch(error => showMessages(error));
     }
-  })
-  .catch(error => console.log(error));
+    else {
+      showMessages("Login and press 'Start");
+    }
+  }
+  else {
+    game();
+  }
 }
 
 function leave(){
@@ -104,25 +142,21 @@ function leave(){
   .catch(error => console.log(error));
 }
 
-// function notify(){
-//   const config = {nick, password, gameId, move}; //move -> id da cavidade
-//   fetch(URL + 'notify', {
-//     'method': 'POST',
-// 		'body': JSON.stringify(config)
-//   })
-//   .then(response => response.json())
-//   .then(jsonData => {
-//     if('error' in jsonData) {
-//       showMessages(jsonData.error);
-//     } else {
-//       showMessages('Jogada válida');
-//     }
-//   })
-//   .catch(error => console.log(error));
-// }
+function notify(move){
+  const config = {nick, password, gameId, move}; //move -> id da cavidade
+  fetch(URL + 'notify', {
+    'method': 'POST',
+		'body': JSON.stringify(config)
+  })
+  .then(response => response.json())
+  .then((json) => {
+    console.log(json);
+  })
+  .catch(error => showMessages(error));
+}
 
 function showMessages(message) {
   const msgDiv = document.getElementById('messages');
-  msgDiv.innerText = message;
+  msgDiv.innerText = JSON.stringify(message);
 }
 
