@@ -167,7 +167,8 @@ function game(){
         
     document.getElementById("giveup").addEventListener("click", give_up);
 
-    const total_cavs = document.getElementById("num_cavidades_op").value*2+2;
+    const no_cav = document.getElementById("num_cavidades_op").value;
+    const total_cavs = no_cav*2+2;
 
     const no_players = document.getElementById("num_players_op").value;
 
@@ -186,15 +187,12 @@ function game(){
     var cavity_number;
     var first_play = true;
     
-    if(bot){
-        const starting = document.getElementById("starting_op").value;
-        var bot_starting = false;
-        if(starting == "computador"){
-            bot_starting = true;
-        }
-    }
-    else{
+    if(!bot){
         startOnlineGame();
+    }
+    else if(bot && !pl1_turn){
+        cavity_number = myBot();
+        document.getElementById("c"+cavity_number).click();
     }
 
     //ADICIONAR EVENT LISTENERS
@@ -218,16 +216,26 @@ function game(){
                 console.log("ARMAZEM 1 " + document.getElementById("c4").childNodes.length);
                 cavity_number = i;
                 value_turn = do_play(bot, pl1_turn, !pl1_turn, cavity_number);
+                
+                if(!bot){
+                    console.log("AQUI:" + pl1_turn);
+                    //cavidades de baixo
+                    if(pl1_turn){
+                        console.log(cavity_number);
+                        notify(cavity_number - 1);
+                        console.log(cavity_number - 1);
+                    }
+                    //cavidades de cima
+                    else{
+                        console.log(cavity_number);
+                        console.log("NO_CAV: "+(+no_cav+2));
+                        notify(cavity_number - (+no_cav + 2)); 
+                        console.log(cavity_number - (+no_cav + 2));
+                    }
+                }
             });
         }
     }
 
-    if(bot && !pl1_turn){
-        cavity_number = myBot();
-        document.getElementById("c"+cavity_number).click();
-    }
-}
-
-function manage_turn(){
-
+    
 }

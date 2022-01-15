@@ -55,6 +55,8 @@ function handleUpdate(msg){
       console.log(message.board);
       showMessages(`It's ${message.board.turn} turn to play`);
     }
+
+    //funcçao que atualiza as sementes de acordo com o board recebido
   }
   if("winner" in message){
     showMessages(`${message.winner} wins!`);
@@ -143,7 +145,8 @@ function leave(){
 }
 
 function notify(move){
-  const config = {nick, password, gameId, move}; //move -> id da cavidade
+  const config = {nick, password, game: gameId, move}; //move -> id da cavidade
+  //console.log(gameId);
   fetch(URL + 'notify', {
     'method': 'POST',
 		'body': JSON.stringify(config)
