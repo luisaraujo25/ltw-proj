@@ -57,12 +57,31 @@ function handleUpdate(msg){
     }
 
     //funcçao que atualiza as sementes de acordo com o board recebido
+    //updateBoard(message.board);
   }
   if("winner" in message){
     showMessages(`${message.winner} wins!`);
     sse.close();
   }
 }
+
+//TODO
+// function updateBoard(sides){
+//   let mySide = null;
+//   let opponentSide = null;
+
+//   for(let player in sides){
+//     if(sides.hasOwnProperty(player)){
+//       player == nick ? (mySide = sides[nick]) : (opponentSide = sides[player]);
+//     }
+//   }
+
+//   const myStorage = document.getElementById("right_space");
+//   const opponentStorage = document.querySelector("left_space");
+
+//
+
+// }
 
 
 function getRankings(){
@@ -128,7 +147,7 @@ function joinGame(){
 }
 
 function leave(){
-  const config = {nick, password, gameId};
+  const config = {nick, password, game: gameId};
   fetch(URL + 'leave', {
     'method': 'POST',
 		'body': JSON.stringify(config)
