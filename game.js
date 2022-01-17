@@ -71,7 +71,7 @@ function after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl
 
             // var x = "c" + turn_around(total_cavs,i,len);
             // window.alert(x);
-            document.getElementById(x).appendChild(sementes[0]);  
+            document.getElementById(x).appendChild(sementes[0]);
         }
         //verificar se tem condições para jogar novamente - x[1] é só o número do ID da cavidade
         //se esta foi a jogada do pl1 então esta variavel já está com o valor false, se for para jogar novamente
@@ -145,7 +145,7 @@ function do_play(bot, pl1_turn, pl2_turn, cavity_number){
 
     const value = after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn);
     
-    //verificar se o jogo já chegou ao fim
+    //verificar se o jogo já chegou ao fim -- CHECK LUISA
     announce_winner(total_cavs);
 
     //the bot chooses and clicks on the cavity
@@ -213,7 +213,7 @@ function game(){
                 else if(!first_play){
                     pl1_turn = value_turn.pl1;
                 }
-                console.log("ARMAZEM 1 " + document.getElementById("c4").childNodes.length);
+                //console.log("ARMAZEM 1 " + document.getElementById("c4").childNodes.length);
                 cavity_number = i;
                 value_turn = do_play(bot, pl1_turn, !pl1_turn, cavity_number);
                 
