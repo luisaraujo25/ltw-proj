@@ -4,7 +4,9 @@
 
 // const server = http.createServer(function (request, response) {
 //     response.writeHead(200, {'Content-Type': 'text/plain'});
-//     response.end('Olá mundo\n');
+//     response.write('Método: '+request.method+'\n');
+//     response.write('URL: '+request.url+'\n');
+//     response.end();
 // });
 
 // server.listen(8008);

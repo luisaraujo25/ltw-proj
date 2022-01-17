@@ -1,3 +1,7 @@
+function setSem(clicked_cav){
+
+}
+
 function give_up(){
     //if we remove all cavities then their event listeners will be removed as well
     removeElements();

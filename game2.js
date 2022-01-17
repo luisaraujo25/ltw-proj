@@ -11,18 +11,14 @@ function removeElements(){
             c.remove();
         }
     }
-
     //remover score
     var s = document.getElementById("result");
     if(s!=null){
         s.remove();
     }
-
 }
 
-
-//3 é o default number para cavidades
-function addElements(){
+function addElements(no_cav, no_sem){
 
     removeElements();
     
@@ -96,4 +92,93 @@ function addStorage(add_cav,no_cav){
     // console.log(id_armazem1);
 
     return id_armazem2;
+}
+
+//number of seeds per cavity
+function getSem(cavityNumber){
+
+    const no_sem = document.getElementById("c"+cavityNumber).childNodes.length;
+
+    return no_sem;
+}
+
+//updates board after being clicked
+function updateBoard(clickedCav){
+
+    var cavId = "c" + clickedCav;
+
+    const element = document.getElementById(chosen_cavity);
+    var sementes = element.childNodes;
+        // window.alert(sementes.length);
+        var len=sementes.length;
+        for(let j=1;j<=len;j++){
+
+            var x = "c"+(cavity_number+j);
+            //ver se dá a "volta"
+            if(cavity_number+j>total_cavs){
+                var x = "c"+ turn_around(total_cavs, cavity_number, j);
+            }
+
+            // var x = "c" + turn_around(total_cavs,i,len);
+            // window.alert(x);
+            document.getElementById(x).appendChild(sementes[0]);
+        }
+}
+
+function play(no_cav, no_sem, no_players, pl1_turn, no_holes, bot){
+
+
+}
+
+
+function addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, first_move){
+
+    //Checks if the player gave up
+    document.getElementById("giveup").addEventListener("click", give_up);
+
+    const storageRightNum = no_holes/2, storageLeftNum = no_holes;
+    //adding every cavity a event listener
+    for(let i=1;i<=no_cav;i++){
+    
+        document.getElementById("c"+i).addEventListener("click", function(){
+               
+            //play
+        });
+    }
+
+    //se estiver a jogar contra um bot e for o bot a fazer a primeira jogada
+    if(bot && first_move){
+
+        first_move = false;
+        
+
+        //while its still bot's start since the start of the game
+
+    }
+}
+
+function game(){
+
+    addElements();
+
+    const no_cav = document.getElementById("num_cavidades_op").value;
+    const no_sem = document.getElementById("num_sementes_op").value;
+    const no_players = document.getElementById("num_players_op").value;
+    const turn = document.getElementById("starting_op").value;
+    //holes = cavities + storages
+    const no_holes = no_cav*2+2; 
+
+    var pl1_turn = true;
+    if(turn == "player2"){
+        pl1_turn = false;
+    }
+
+    var bot = false;
+    if(no_players == "1"){
+        bot = true;
+    }
+
+
+    addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, true);
+    
 }
