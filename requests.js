@@ -9,6 +9,7 @@ let initial  = document.getElementById('num_sementes_op').value; // Número de s
 let gameId     = null; // Id do jogo
 let players = document.getElementById('num_players_op').value;
 let sse = null;
+let surrender = false;
 
 const nickInput = document.getElementById('username');
 nickInput.addEventListener('change', (evt) => nick = evt.target.value);
@@ -49,39 +50,57 @@ function startOnlineGame(){
 
 function handleUpdate(msg){
   const message = JSON.parse(msg.data);
-  console.log(message);
+  //console.log(message);
   if("board" in message){
     if("turn" in message.board){
-      console.log(message.board);
       showMessages(`It's ${message.board.turn} turn to play`);
     }
-
-    //funcçao que atualiza as sementes de acordo com o board recebido
-    //updateBoard(message.board);
+    if('pit' in message){
+      updateBoard(message);
+    }
   }
   if("winner" in message){
     showMessages(`${message.winner} wins!`);
+    if(message.winner == nick && surrender){
+      leave();
+    }
+    else if(!surrender){
+      setTimeout(() => {
+        removeElements();
+      }, 2000);
+    }
     sse.close();
   }
 }
 
-//TODO
-// function updateBoard(sides){
-//   let mySide = null;
-//   let opponentSide = null;
+function updateBoard(message){
+  let opponentSide = '';
+  const players = Object.keys(message.board.sides);
 
-//   for(let player in sides){
-//     if(sides.hasOwnProperty(player)){
-//       player == nick ? (mySide = sides[nick]) : (opponentSide = sides[player]);
-//     }
-//   }
+  for(let i = 0; i < players.length; i++){
+    if(nick != players.at(i)){
+      opponentSide = players.at(i);
+    }
+  }
 
-//   const myStorage = document.getElementById("right_space");
-//   const opponentStorage = document.querySelector("left_space");
+  let cont = 0;
+  let no_cav = message.board.sides[nick].pits.length;
+  let i = 0;
+  for(i = 0; i < no_cav; i++){
+    setCavSem(i + 1, message.board.sides[nick].pits[i]);
+  }
+  let id_armazem1 = no_cav+1, id_armazem2 = no_cav*2+2;
+  setCavSem(id_armazem1, message.stores[opponentSide]);
+  i++;
 
-//
+  for(let j = i; j < id_armazem2; j++){
+    setCavSem(j + 1, message.board.sides[opponentSide].pits[cont]);
+    cont++;
+  }
 
-// }
+  setCavSem(id_armazem2, message.stores[nick]);
+
+}
 
 
 function getRankings(){
@@ -96,8 +115,7 @@ function getRankings(){
     .then(response => response.json())
     .then(data => {
 
-        console.log('Success:', data);
-        // console.log(data.ranking[0].games);
+      console.log('Success:', data);
 
     })
     .catch((error) => {
@@ -119,7 +137,6 @@ function login(){
 
 
 function joinGame(){
-  //console.log(group + nick + password + size + initial); debug
   if(players == 2){
     if(nick && password){
       const config = {group, nick, password, size, initial};
@@ -160,7 +177,7 @@ function leave(){
       showMessages('Leaving the game with ID: ', gameId);
     }
   })
-  .catch(error => console.log(error));
+  .catch(error => showMessages(error));
 }
 
 function notify(move){
@@ -172,7 +189,7 @@ function notify(move){
   })
   .then(response => response.json())
   .then((json) => {
-    console.log(json);
+    showMessages(json);
   })
   .catch(error => showMessages(error));
 }

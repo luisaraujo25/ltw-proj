@@ -118,10 +118,9 @@ function setCavSem(cav, numSeeds){
 }
 
 function removeSeeds(cav){
-
-    let sems = document.getElementById("c"+cav);
-    while(sems.childNodes.length){
-        sems.removeChild(sems.childNodes[0]);
+    let cavs = document.getElementById("c"+cav);
+    while(cavs.hasChildNodes()){
+        cavs.removeChild(cavs.childNodes[0]);
     }
 }
 
@@ -164,6 +163,7 @@ function addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, 
 function give_up(){
     //if we remove all cavities then their event listeners will be removed as well
     removeElements();
+    surrender = true;
 }
 
 function game(){
@@ -193,3 +193,16 @@ function game(){
 
     addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, true);
 }
+
+
+const open = document.getElementById('open');
+const modal_container = document.getElementById('modal_container');
+const close = document.getElementById('close');
+
+open.addEventListener('click', () => {
+    modal_container.classList.add('show');
+});
+
+close.addEventListener('click', () => {
+    modal_container.classList.remove('show');
+});
