@@ -1,8 +1,28 @@
-//BOT - MINIMAX - MINIMIZE THE LOSS
-function myBot(){
-
+function choose_bot(bot){
+    
     const no_cavs = document.getElementById("num_cavidades_op").value;
     var first_id = +no_cavs + 2;
+
+    if(bot){
+        dumbBot(no_cavs,first_id);
+    }
+    else{
+        greedyBot(no_cavs,first_id);
+    }
+}
+
+function dumbBot(no_cavs,first_id){
+    
+    const last_id = first_id+no_cavs-1;
+    const random_id = Math.random()*(last_id-first_id)+first_id;
+
+    return random_id;
+}
+
+
+//BOT - MINIMAX - MINIMIZE THE LOSS
+function greedyBot(no_cavs,first_id){
+
 
     // console.log(first_id);
 

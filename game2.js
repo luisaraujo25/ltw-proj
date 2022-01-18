@@ -25,8 +25,7 @@ function addElements(no_cav, no_sem){
     //adicionar as cavidades adicionais, por default sao 3
     var no_cav = document.getElementById("num_cavidades_op").value;
     var no_sem = document.getElementById("num_sementes_op").value;
-    const no_cav = add_cav*2;
-    
+
     //setId to storages
     var id_armazem2 = addStorage(add_cav,no_cav);
 
@@ -53,10 +52,6 @@ function addSem(cav_id, sem_id2) {
     var sem = document.createElement("div");
     sem.setAttribute("class","semente");
     document.getElementById("c"+cav_id).appendChild(sem);
-
-    //ex: sem_id="sem+1+1"
-    // var sem_id="sem"+cav_id+sem_id2;
-    // sem.setAttribute("id", sem_id);
 }
 
 
@@ -142,7 +137,7 @@ function addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, 
     
         document.getElementById("c"+i).addEventListener("click", function(){
                
-            //play
+            //notify -> update 
         });
     }
 
@@ -150,9 +145,12 @@ function addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, 
     if(bot && first_move){
 
         first_move = false;
-        
 
         //while its still bot's start since the start of the game
+        while(!pl1_turn){
+
+            play(no_cav, no_sem, no_players, pl1_turn, no_holes, bot);
+        }
 
     }
 }
@@ -180,5 +178,4 @@ function game(){
 
 
     addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, true);
-    
 }
