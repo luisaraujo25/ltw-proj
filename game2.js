@@ -120,10 +120,16 @@ function updateBoard(clickedCav){
         }
 }
 
-function play(no_cav, no_sem, no_players, pl1_turn, no_holes, bot){
-
-
+function turn(){
+    //returns true if it is plX's turn;
 }
+
+function check_turn(pl1_turn, cavity_id){
+
+    //const valid = turn();
+    //if(valid) updateBoard(cavity_id)
+}
+
 
 
 function addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, first_move){
@@ -137,7 +143,7 @@ function addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, 
     
         document.getElementById("c"+i).addEventListener("click", function(){
                
-            //notify -> update 
+            //check_turn(pl1_turn, i);
         });
     }
 
