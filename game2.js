@@ -140,9 +140,13 @@ function addEventListeners(no_cav, no_sem, no_players, pl1_turn, no_holes, bot, 
     for(let i=1;i<=no_cav;i++){
     
         document.getElementById("c"+i).addEventListener("click", function(){
-               
-            //check_turn(pl1_turn, i);
-            notify(i-1);
+            
+            if(!bot){
+                notify(i-1);
+            }
+            else{
+                //BOT VS PLAYER
+            }
         });
     }
 
