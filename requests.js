@@ -62,14 +62,7 @@ function handleUpdate(msg){
   }
   if("winner" in message){
     showMessages(`${message.winner} wins!`);
-    if(message.winner == nick && surrender){
-      leave();
-    }
-    else if(!surrender){
-      setTimeout(() => {
-        removeElements();
-      }, 2000);
-    }
+    removeElements();
     sse.close();
   }
 }
@@ -91,7 +84,7 @@ function updateBoard(message){
     setCavSem(i + 1, message.board.sides[nick].pits[i]);
   }
   let id_armazem1 = no_cav+1, id_armazem2 = no_cav*2+2;
-  setCavSem(id_armazem1, message.stores[opponentSide]);
+  setCavSem(id_armazem1, message.stores[nick]);
   i++;
 
   for(let j = i; j < id_armazem2; j++){
@@ -99,7 +92,7 @@ function updateBoard(message){
     cont++;
   }
 
-  setCavSem(id_armazem2, message.stores[nick]);
+  setCavSem(id_armazem2, message.stores[opponentSide]);
 
 }
 
@@ -119,9 +112,7 @@ function getRankings(){
       console.log('Success:', data);
 
     })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    .catch(error => showMessages(error));
 }
 
 function login(){
@@ -176,6 +167,7 @@ function leave(){
       showMessages(jsonData.error);
     } else {
       showMessages('Leaving the game with ID: ', gameId);
+      removeElements();
     }
   })
   .catch(error => showMessages(error));
