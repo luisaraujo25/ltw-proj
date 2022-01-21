@@ -84,6 +84,5 @@ function removeSeeds(cav){
 }
 
 function getSemsNumber(cav){
-    console.log(cav);
     return document.getElementById("c"+cav).childNodes.length;
 }

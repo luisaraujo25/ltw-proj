@@ -2,13 +2,14 @@ function choose_bot(bot){
     
     const no_cavs = document.getElementById("num_cavidades_op").value;
     var first_id = +no_cavs + 2;
-
+    let value;
     if(bot){
-        dumbBot(no_cavs,first_id);
+        value = dumbBot(no_cavs,first_id);
     }
     else{
-        greedyBot(no_cavs,first_id);
+        value = greedyBot(no_cavs,first_id);
     }
+    return value
 }
 
 function dumbBot(no_cavs,first_id){

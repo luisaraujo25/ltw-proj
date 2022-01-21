@@ -10,29 +10,7 @@ function give_up(){
 
 function after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn){
 
-    if(pl1_turn){
-        
-        console.log("its me pl1");
-        if(cavity_number>total_cavs/2){
-            valid_turn=false;
-        }
-        else{
-            valid_turn=true;
-            pl1_turn=false;
-            pl2_turn=true;
-        }
-    }
-    else{
-        console.log("its me pl2");
-        if(cavity_number<total_cavs/2){
-            valid_turn=false;
-        }
-        else{
-            valid_turn=true;
-            pl1_turn=true;
-            pl2_turn=false;
-        }   
-    }
+
     
     const element = document.getElementById(chosen_cavity);
 

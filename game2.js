@@ -11,32 +11,75 @@ class Turn{
     setTurn(pl1_turn){
         this.turn = pl1_turn;
     }
-}
 
-function play(no_cav, no_sem, t, no_holes, chosen_cavity){
-
-    let turn = t.getTurn();
-    const total_cavs = no_cav*2+2;
-
-    const cavity = document.getElementById("c"+chosen_cavity);
-    let sementes = cavity.childNodes;
-    let len = sementes.length;
-
-    if(cavity.hasChildNodes()){
-        removeSeeds(chosen_cavity);
-    }
-    for(let j=1;j<=len;j++){
-
-        let cav = chosen_cavity+j;
-        //ver se dá a "volta"
-        if(chosen_cavity+j>total_cavs){
-            cav = turn_around(total_cavs, chosen_cavity, j);
+    manageTurn(last_cav, no_holes){
+        
+        // var aux = document.getElementById(last_cav).childNodes.length-1;
+        
+        if(this.getTurn() && last_cav==no_holes/2){
+            this.setTurn(true);   
         }
-
-        let semN = getSemsNumber(cav);
-        setCavSem(cav, semN+1);
+        else if(!this.getTurn() && last_cav==no_holes){
+            this.setTurn(false);
+        }
+        else{
+            this.setTurn(!this.turn);
+        }
     }
 }
+
+function play(no_cav, t, no_holes, chosen_cavity){
+
+    if(t.getTurn()){
+
+        const cavity = document.getElementById("c"+chosen_cavity);
+        let sementes = cavity.childNodes;
+        let len = sementes.length;
+    
+        removeSeeds(chosen_cavity);
+
+        for(let j=1;j<=len;j++){
+    
+            var cav = chosen_cavity+j;
+            //ver se dá a "volta"
+            if(chosen_cavity+j>no_holes){
+                cav = turn_around(no_holes, chosen_cavity, j);
+            }
+    
+            let semN = getSemsNumber(cav);
+            setCavSem(cav, semN+1);
+        }
+        check_end(no_holes);
+        t.manageTurn(cav, no_holes);
+    }
+
+
+    while(!t.getTurn()){
+
+        chosen_cavity = choose_bot(false);
+
+        const cavity = document.getElementById("c"+chosen_cavity);
+        let sementes = cavity.childNodes;
+        let len = sementes.length;
+    
+        removeSeeds(chosen_cavity);
+        
+        for(let j=1;j<=len;j++){
+    
+            var cav = chosen_cavity+j;
+            //ver se dá a "volta"
+            if(chosen_cavity+j>no_holes){
+                cav = turn_around(no_holes, chosen_cavity, j);
+            }
+    
+            let semN = getSemsNumber(cav);
+            setCavSem(cav, semN+1);
+        }
+        check_end(no_holes);
+        t.manageTurn(cav, no_holes);
+    }    
+}
+
 
 function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, first_move){
 
@@ -55,7 +98,7 @@ function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, first_move){
             }
             else{
                 //BOT VS PLAYER
-                play(no_cav,no_sem,t,no_holes,i)
+                play(no_cav,t,no_holes,i)
             }
         });
     }
@@ -68,7 +111,7 @@ function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, first_move){
         //while its still bot's start since the start of the game
         while(!pl1_turn){
             let chosen_cavity = choose_bot(false);
-            play(no_cav,no_sem,t,no_holes,chosen_cavity);
+            play(no_cav,t,no_holes,chosen_cavity);
         }
 
     }
