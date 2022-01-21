@@ -1,199 +1,193 @@
-function setSem(clicked_cav){
-
-}
-
-function give_up(){
-    //if we remove all cavities then their event listeners will be removed as well
-    removeElements();
-}
-
-
-function after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn){
-
-
+class Turn{
     
-    const element = document.getElementById(chosen_cavity);
+    constructor(pl1_turn){
+        this.turn = pl1_turn;
+    }
 
-    if(element.hasChildNodes() && valid_turn==true){
-                    
-        var sementes = element.childNodes;
-        // window.alert(sementes.length);
-        var len=sementes.length;
-        for(let j=1;j<=len;j++){
+    getTurn(){
+        return this.turn;
+    }
 
-            var x = "c"+(cavity_number+j);
-            //ver se dá a "volta"
-            if(cavity_number+j>total_cavs){
-                var x = "c"+ turn_around(total_cavs, cavity_number, j);
-            }
+    setTurn(pl1_turn){
+        this.turn = pl1_turn;
+    }
 
-            // var x = "c" + turn_around(total_cavs,i,len);
-            // window.alert(x);
-            document.getElementById(x).appendChild(sementes[0]);
-        }
-        //verificar se tem condições para jogar novamente - x[1] é só o número do ID da cavidade
-        //se esta foi a jogada do pl1 então esta variavel já está com o valor false, se for para jogar novamente
-        //muda-se o seu valor para true
-        //as duas primeiras condições verificam se a ultima semente calhou no armazem - VERIFICA PRIMEIRO
-        //as duas ultimas verficam se a ultima semente calhou numa das cavidades (vazia) do player que tem vez nesse momento
-        //aux representa a cavidade em que "caiu" a última semente da jogadas
-        var last_cav_num=x[1];
-        if(x.length>2){
-            last_cav_num+=x[2];
-        }
-
-        //(...)-1 since after the play the last cavity will always have at least one seed
-        var aux = document.getElementById(x).childNodes.length-1;
+    manageTurn(last_cav, no_holes){
         
-        // console.log("LAST CAV NUM: "+last_cav_num);
-        // console.log("NO_SEEDS: "+aux);
-        if((pl1_turn==false && last_cav_num==total_cavs/2) || (pl2_turn==false && last_cav_num==total_cavs)){
-
-            pl1_turn=!pl1_turn;
-            pl2_turn=!pl2_turn;
+        // var aux = document.getElementById(last_cav).childNodes.length-1;
+        
+        if(this.getTurn() && last_cav==no_holes/2){
+            this.setTurn(true);   
         }
-        else if((pl1_turn==false && last_cav_num<total_cavs/2 && !aux) || (pl2_turn==false && last_cav_num>total_cavs/2 && !aux)){
-            
-            console.log("tira todas");
-
-            //declara opos_cav_num +/-total_cavs/2
-            var opos_cav_num=total_cavs-last_cav_num;
-
-            // console.log("c"+opos_cav_num);
-            var opos_elem = document.getElementById("c"+opos_cav_num).childNodes;
-
-            var armazem_number=total_cavs;
-            if(pl1_turn==false){
-                armazem_number/=2;
-            }
-
-            var armazem = document.getElementById("c"+armazem_number);
-            var last_cav_elem = document.getElementById("c"+last_cav_num);
-            
-            if(document.getElementById("c"+opos_cav_num).hasChildNodes()){
-                console.log("oposta tem filhos");
-                armazem.appendChild(last_cav_elem.childNodes[0]);
-            }
-            
-            const aux_len=opos_elem.length;
-            for(let k=0;k<aux_len;k++){
-                armazem.appendChild(opos_elem[0]);
-            }
-            //adicionar a ultima pedra da MINHA CAVIDADE ao meu armazem
+        else if(!this.getTurn() && last_cav==no_holes){
+            this.setTurn(false);
+        }
+        else{
+            this.setTurn(!this.turn);
         }
     }
-    return {valid: valid_turn, pl1: pl1_turn, pl2: pl2_turn};
 }
 
-function do_play(bot, pl1_turn, pl2_turn, cavity_number){
+function checkException(lastCav, no_holes, t){
 
-    
-    // console.log(cavity_number);
-
-    const total_cavs = document.getElementById("num_cavidades_op").value*2+2;
-    var chosen_cavity = "c"+cavity_number;
-    //esta condição impede adicionar evenlisteners para os armazens
-    
-
-    //managing who plays
-    
-    // setTimeout(doSomething, 3000);
-    // console.log(pl1_turn);
-    var valid_turn = false;
-
-    const value = after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn);
-    
-    //verificar se o jogo já chegou ao fim -- CHECK LUISA
-    announce_winner(total_cavs);
-
-    //the bot chooses and clicks on the cavity
-    console.log("PL1: "+value.pl1 + ", PL2: "+value.pl2);
-    if(bot && value.pl2){
-        var cavity_number = myBot();
-        // console.log("c"+cavity_number);
-        document.getElementById("c"+cavity_number).click();
-        // console.log("CLICK");
+    //(...)-1 since after the play the last cavity will always have at least one seed
+    let lastCavSem = document.getElementById("c"+lastCav).childNodes.length-1;
+    let storage = no_holes;
+    let belongsToPlayer = false;
+    if(t.getTurn()){
+        storage /= 2;
+        if(lastCav < storage){
+            belongsToPlayer = true;
+        }
     }
-    return value;
+    else{
+        if(lastCav > storage/2){
+            belongsToPlayer = true;
+        }
+    }
+    
+    if(!lastCavSem && belongsToPlayer){
+        
+        let opos_cav_num = no_holes-lastCav;
+        let oposCav = document.getElementById("c"+opos_cav_num).childNodes;
+        if(oposCav.length){
+            setCavSem(storage,getSem(lastCav)+getSem(storage)+oposCav.length);
+            removeSeeds(opos_cav_num);
+        }
+    }
 }
 
-var value_turn;
+function distribute(no_cav, t, no_holes, chosen_cavity){
+    
+    
+    const cavity = document.getElementById("c"+chosen_cavity);
+    let sementes = cavity.childNodes;
+    let len = sementes.length;
+    
+    removeSeeds(chosen_cavity);
+    
+    for(let j=1;j<=len;j++){
+        
+        var cav = chosen_cavity+j;
+        //ver se dá a "volta"
+        if(chosen_cavity+j>no_holes){
+            cav = turn_around(no_holes, chosen_cavity, j);
+        }
+        
+        let semN = getSemsNumber(cav);
+        setCavSem(cav, semN+1);
+    }
+    checkException(cav, no_holes, t);
+    check_end(no_holes);
+    t.manageTurn(cav, no_holes);
+}
+
+function display(no_holes){
+
+    if(document.getElementById("delete-me")){
+        document.getElementById("delete-me").remove();
+    }
+    let div = document.createElement("div");
+    div.setAttribute("id","delete-me");
+    for(let i=1;i<=no_holes;i++){
+        let e = document.createElement("div");
+        e.setAttribute("id","c"+i);
+        let aux = e.appendChild(document.createTextNode("c"+i+": "+e.childNodes.length+", "));
+        document.body.appendChild(aux);
+    }
+}
+
+
+function play(no_cav, t, no_holes, chosen_cavity){
+    
+    display(no_holes);
+    if(t.getTurn()){
+        
+        if(document.getElementById("c"+chosen_cavity).childNodes.length){
+            distribute(no_cav, t, no_holes, chosen_cavity);
+        }
+    }
+
+    while(!t.getTurn()){
+        chosen_cavity = choose_bot(false);
+        distribute(no_cav, t, no_holes, chosen_cavity);
+    }    
+}
+
+
+function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, first_move){
+
+    //Checks if the player gave up
+    document.getElementById("giveup").addEventListener("click", give_up);
+    
+    var t = new Turn(pl1_turn);
+
+    //adding every cavity a event listener
+    for(let i=1;i<=no_cav;i++){
+    
+        document.getElementById("c"+i).addEventListener("click", function(){
+            
+            if(!bot){
+                notify(i-1);
+            }
+            else{
+                //BOT VS PLAYER
+                play(no_cav,t,no_holes,i)
+            }
+        });
+    }
+
+    //se estiver a jogar contra um bot e for o bot a fazer a primeira jogada
+    if(bot && first_move){
+
+        first_move = false;
+
+        //while its still bot's start since the start of the game
+        while(!pl1_turn){
+            let chosen_cavity = choose_bot(true);
+            play(no_cav,t,no_holes,chosen_cavity);
+        }
+
+    }
+}
 
 function game(){
 
-    addElements();
-        
-    document.getElementById("giveup").addEventListener("click", give_up);
-
+    
     const no_cav = document.getElementById("num_cavidades_op").value;
-    const total_cavs = no_cav*2+2;
-
+    const no_sem = document.getElementById("num_sementes_op").value;
     const no_players = document.getElementById("num_players_op").value;
-
-    //starting
-    const player_starting = document.getElementById("starting_op").value;
+    const turn = document.getElementById("starting_op").value;
+    //holes = cavities + storages
+    const no_holes = no_cav*2+2; 
+    
+    addElements(no_cav, no_sem);
 
     var pl1_turn = true;
-    if(player_starting=="player2") pl1_turn=false;
-    //o jogo por default começa com 2 jogadores -> PLAYER VS PLAYER
+    if(turn == "player2"){
+        pl1_turn = false;
+    }
+    
     var bot = false;
-    //caso o utilizador mude o número players para 1 -> PLAYER VS BOT
     if(no_players == "1"){
         bot = true;
     }
-
-    var cavity_number;
-    var first_play = true;
-    
-    if(!bot){
+    else{
         startOnlineGame();
     }
-    else if(bot && !pl1_turn){
-        cavity_number = myBot();
-        document.getElementById("c"+cavity_number).click();
-    }
 
-    //ADICIONAR EVENT LISTENERS
-    for(let i=1;i<=total_cavs;i++){
-
-        //verifica de o elementos existe
-        if(document.getElementById("c"+i)!=null){
-            
-            document.getElementById("c"+i).addEventListener("click", function(){
-                
-                if(i==total_cavs/2 || i==total_cavs){
-                    return;
-                }
-
-                if(first_play){
-                    first_play = false;
-                }
-                else if(!first_play){
-                    pl1_turn = value_turn.pl1;
-                }
-                //console.log("ARMAZEM 1 " + document.getElementById("c4").childNodes.length);
-                cavity_number = i;
-                value_turn = do_play(bot, pl1_turn, !pl1_turn, cavity_number);
-                
-                if(!bot){
-                    console.log("AQUI:" + pl1_turn);
-                    //cavidades de baixo
-                    if(pl1_turn){
-                        console.log(cavity_number);
-                        notify(cavity_number - 1);
-                        console.log(cavity_number - 1);
-                    }
-                    //cavidades de cima
-                    else{
-                        console.log(cavity_number);
-                        console.log("NO_CAV: "+(+no_cav+2));
-                        notify(cavity_number - (+no_cav + 2)); 
-                        console.log(cavity_number - (+no_cav + 2));
-                    }
-                }
-            });
-        }
-    }
-
-    
+    addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, true);
 }
+
+
+const open = document.getElementById('open');
+const modal_container = document.getElementById('modal_container');
+const close = document.getElementById('close');
+
+open.addEventListener('click', () => {
+    modal_container.classList.add('show');
+});
+
+close.addEventListener('click', () => {
+    modal_container.classList.remove('show');
+});

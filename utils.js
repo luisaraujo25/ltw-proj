@@ -29,7 +29,9 @@ function check_end(total_cavs){
 
         console.log("acabou");
         score();
+        return true;
     }
+    return false;
 }
 
 function score(){
