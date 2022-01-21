@@ -28,6 +28,37 @@ class Turn{
     }
 }
 
+function checkException(lastCav, no_holes, t){
+
+    //(...)-1 since after the play the last cavity will always have at least one seed
+    let lastCavSem = document.getElementById("c"+lastCav).childNodes.length-1;
+    let storage = no_holes;
+    let belongsToPlayer = false;
+    if(t.getTurn()){
+        storage /= 2;
+        if(lastCav < storage){
+            belongsToPlayer = true;
+        }
+    }
+    else{
+        if(lastCav > storage/2){
+            belongsToPlayer = true;
+        }
+    }
+    
+    if(!lastCavSem && belongsToPlayer){
+        
+        if(oposCav.length){
+            
+            let opos_cav_num = no_holes-lastCav;
+            let oposCav = document.getElementById("c"+opos_cav_num).childNodes;
+            
+            setCavSem(storage,getSem(lastCav)+getSem(storage)+oposCav.length);
+            removeSeeds(opos_cav_num);
+        }
+    }
+}
+
 function distribute(no_cav, t, no_holes, chosen_cavity){
 
     const cavity = document.getElementById("c"+chosen_cavity);
@@ -47,6 +78,7 @@ function distribute(no_cav, t, no_holes, chosen_cavity){
         let semN = getSemsNumber(cav);
         setCavSem(cav, semN+1);
     }
+    checkException(cav, no_holes, t);
     check_end(no_holes);
     t.manageTurn(cav, no_holes);
 }
