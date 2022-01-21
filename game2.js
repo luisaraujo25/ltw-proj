@@ -48,11 +48,9 @@ function checkException(lastCav, no_holes, t){
     
     if(!lastCavSem && belongsToPlayer){
         
+        let opos_cav_num = no_holes-lastCav;
+        let oposCav = document.getElementById("c"+opos_cav_num).childNodes;
         if(oposCav.length){
-            
-            let opos_cav_num = no_holes-lastCav;
-            let oposCav = document.getElementById("c"+opos_cav_num).childNodes;
-            
             setCavSem(storage,getSem(lastCav)+getSem(storage)+oposCav.length);
             removeSeeds(opos_cav_num);
         }
