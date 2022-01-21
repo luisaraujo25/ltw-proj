@@ -7,30 +7,6 @@ function give_up(){
     removeElements();
 }
 
-function announce_winner(total_cavs){
-    
-    //o jogo acaba quando pelo menos um dos jogadores já não tiver mais jogadas possíveis
-    //verificar as cavidades de baixo
-    var acc1=0, acc2=0;
-    for(let i=1;i<=total_cavs/2-1;i++){
-        acc1+=document.getElementById("c"+i).childNodes.length;
-    }
-    for(let i=total_cavs/2+1;i<=total_cavs-1;i++){
-        acc2+=document.getElementById("c"+i).childNodes.length;
-    }
-
-    //se acabar verifica quem ganha
-    if(!acc1 || !acc2){
-        
-        console.log("ganhei");
-        score();
-    }
-}
-
-function doSomething() {
-    //do whatever you want here
-    console.log("ESPEREI");
-}
 
 function after_clicking(chosen_cavity, cavity_number, valid_turn, total_cavs, pl1_turn, pl2_turn){
 
