@@ -28,55 +28,40 @@ class Turn{
     }
 }
 
+function distribute(no_cav, t, no_holes, chosen_cavity){
+
+    const cavity = document.getElementById("c"+chosen_cavity);
+    let sementes = cavity.childNodes;
+    let len = sementes.length;
+    
+    removeSeeds(chosen_cavity);
+     
+    for(let j=1;j<=len;j++){
+    
+        var cav = chosen_cavity+j;
+        //ver se dá a "volta"
+        if(chosen_cavity+j>no_holes){
+            cav = turn_around(no_holes, chosen_cavity, j);
+        }
+    
+        let semN = getSemsNumber(cav);
+        setCavSem(cav, semN+1);
+    }
+    check_end(no_holes);
+    t.manageTurn(cav, no_holes);
+}
+
+
 function play(no_cav, t, no_holes, chosen_cavity){
 
     if(t.getTurn()){
 
-        const cavity = document.getElementById("c"+chosen_cavity);
-        let sementes = cavity.childNodes;
-        let len = sementes.length;
-    
-        removeSeeds(chosen_cavity);
-
-        for(let j=1;j<=len;j++){
-    
-            var cav = chosen_cavity+j;
-            //ver se dá a "volta"
-            if(chosen_cavity+j>no_holes){
-                cav = turn_around(no_holes, chosen_cavity, j);
-            }
-    
-            let semN = getSemsNumber(cav);
-            setCavSem(cav, semN+1);
-        }
-        check_end(no_holes);
-        t.manageTurn(cav, no_holes);
+        distribute(no_cav, t, no_holes, chosen_cavity);
     }
 
-
     while(!t.getTurn()){
-
         chosen_cavity = choose_bot(false);
-
-        const cavity = document.getElementById("c"+chosen_cavity);
-        let sementes = cavity.childNodes;
-        let len = sementes.length;
-    
-        removeSeeds(chosen_cavity);
-        
-        for(let j=1;j<=len;j++){
-    
-            var cav = chosen_cavity+j;
-            //ver se dá a "volta"
-            if(chosen_cavity+j>no_holes){
-                cav = turn_around(no_holes, chosen_cavity, j);
-            }
-    
-            let semN = getSemsNumber(cav);
-            setCavSem(cav, semN+1);
-        }
-        check_end(no_holes);
-        t.manageTurn(cav, no_holes);
+        distribute(no_cav, t, no_holes, chosen_cavity);
     }    
 }
 
