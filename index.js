@@ -1,6 +1,7 @@
 const http = require('http');
 const url = require('url');
 const fs = require('fs');
+const crypto = require('crypto');
 
 const hostname = 'twserver.alunos.dcc.fc.up.pt';
 const port = 9110;
@@ -23,17 +24,19 @@ const server = http.createServer((request, response) => {
               fs.readFile('users.json',function(err,data) {
                 if(! err) {
                   users = JSON.parse(data);
-                  if(JSON.stringify(users) === '{}' || users[aux.nick] == undefined){
-                    users[aux.nick] = {password: aux.password};
+                  if(JSON.stringify(users) === '{}' || users[aux.nick] === undefined){
+                    var hashedPassword = crypto.createHash('md5').update(aux.password.toString()).digest('hex');
+                    console.log(aux.password, hashedPassword);
+                    users[aux.nick] = {password: hashedPassword};
                     fs.writeFile('users.json', JSON.stringify(users), function (err) {
                       if (err) return console.log(err);
                     });
                   }
-                    if(users[aux.nick].password === aux.password && users[aux.nick] !== undefined){
+                    if(users[aux.nick].password === hashedPassword && users[aux.nick] !== undefined){
                       response.writeHead(200, {'Content-Type': 'application/json'});
                       response.end(JSON.stringify({}));
                     }
-                    else if((users[aux.nick] !== undefined && users[aux.nick].password !== aux.password)){
+                    else if((users[aux.nick] !== undefined && users[aux.nick].password !== hashedPassword)){
                       response.writeHead(401, {'Content-Type': 'application/json'});
                       response.end(JSON.stringify({ "error": "User registered with a different password"}));
                     }
@@ -52,6 +55,48 @@ const server = http.createServer((request, response) => {
           })
           break;
         case '/rankings':
+          break;
+
+        case '/join':
+          let body = '';
+          var gameId = null;
+          request.on('data', chunk => {
+            body += chunk;
+          })
+          request.on('end', () => {
+            //verificar valores
+            let auxgame = JSON.parse(body);
+            if(auxgame.group !== undefined && auxgame.nick !== undefined && auxgame.password !== undefined && auxgame.size !== undefined && auxgame.initial !== undefined){
+              fs.readFile('game.json',function(err,data) {
+                if(! err) {
+                  game_aux = JSON.parse(data);
+                  gameId = crypto.createHash('md5').update(auxgame.group.toString()).digest('hex');
+                  if(JSON.stringify(game_aux) === '{}' || game_aux[auxgame.group] === undefined){
+                    console.log(auxgame.nick, gameId);
+                    game_aux[auxgame.group] = {game: gameId};
+                    console.log(game_aux);
+                    fs.writeFile('game.json', JSON.stringify(game_aux), function (err) {
+                      if (err) return console.log(err);
+                    });
+                  }
+                    if(game_aux[auxgame.group].game === gameId && game_aux[auxgame.group] !== undefined){
+                      response.writeHead(200, {'Content-Type': 'application/json'});
+                      response.end(JSON.stringify({"game":gameId}));
+                    }
+                    else{
+                      response.writeHead(401, {'Content-Type': 'application/json'});
+                      response.end();
+                    }
+                    response.end();
+                }
+              });
+            }
+            else{
+              response.writeHead(404, {'Content-Type': 'application/json'});
+              //aux.nick === undefined ? response.end(JSON.stringify({"error":"nick is not a valid string"})) : response.end(JSON.stringify({"error":"password is not a valid string"}));
+              response.end();
+            }
+          })
           break;
 
         default:
@@ -74,4 +119,4 @@ const server = http.createServer((request, response) => {
 //     console.log(`Server running at http://${hostname}:${port}/`);
 // });
 
-server.listen(8008);
+server.listen(8000);

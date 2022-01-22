@@ -1,5 +1,7 @@
 const URL = "http://twserver.alunos.dcc.fc.up.pt:8008/";
 
+//const URL = "http://localhost:8008/";
+
 // const group = 150; // Número do grupo para emparelhamento para debugging (usem o vosso)
 const group = 123487572242;
 
