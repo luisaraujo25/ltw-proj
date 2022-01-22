@@ -98,7 +98,7 @@ function display(no_holes){
 }
 
 
-function play(no_cav, t, no_holes, chosen_cavity){
+function play(no_cav, t, no_holes, chosen_cavity, bot_level){
     
     display(no_holes);
     if(t.getTurn()){
@@ -109,13 +109,13 @@ function play(no_cav, t, no_holes, chosen_cavity){
     }
 
     while(!t.getTurn()){
-        chosen_cavity = choose_bot(false);
+        chosen_cavity = choose_bot(bot_level);
         distribute(no_cav, t, no_holes, chosen_cavity);
     }    
 }
 
 
-function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, first_move){
+function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, bot_level, first_move){
 
     //Checks if the player gave up
     document.getElementById("giveup").addEventListener("click", give_up);
@@ -132,7 +132,7 @@ function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, first_move){
             }
             else{
                 //BOT VS PLAYER
-                play(no_cav,t,no_holes,i)
+                play(no_cav,t,no_holes,i,bot_level);
             }
         });
     }
@@ -144,8 +144,8 @@ function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, first_move){
 
         //while its still bot's start since the start of the game
         while(!pl1_turn){
-            let chosen_cavity = choose_bot(true);
-            play(no_cav,t,no_holes,chosen_cavity);
+            let chosen_cavity = choose_bot(bot_level);
+            play(no_cav,t,no_holes,chosen_cavity,bot_level);
         }
 
     }
@@ -158,6 +158,7 @@ function game(){
     const no_sem = document.getElementById("num_sementes_op").value;
     const no_players = document.getElementById("num_players_op").value;
     const turn = document.getElementById("starting_op").value;
+    const bot_level = document.getElementById("bot_level_op").value;
     //holes = cavities + storages
     const no_holes = no_cav*2+2; 
     
@@ -176,7 +177,7 @@ function game(){
         startOnlineGame();
     }
 
-    addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, true);
+    addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, bot_level, true);
 }
 
 
