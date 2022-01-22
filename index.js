@@ -19,42 +19,36 @@ const server = http.createServer((request, response) => {
           request.on('end', () => {
             //verificar valores
             let aux = JSON.parse(data);
-            fs.readFile('users.json',function(err,data) {
-              if(! err) {
+            if(aux.nick !== undefined && aux.password !== undefined){
+              fs.readFile('users.json',function(err,data) {
+                if(! err) {
                   users = JSON.parse(data);
-                  if(users.length === 0){
-                    users.push(aux);
+                  if(JSON.stringify(users) === '{}' || users[aux.nick] == undefined){
+                    users[aux.nick] = {password: aux.password};
                     fs.writeFile('users.json', JSON.stringify(users), function (err) {
                       if (err) return console.log(err);
                     });
                   }
-                  users.forEach(user => {
-                    console.log(user.nick, user.password, aux.nick, aux.password);
-                    if(aux.nick === user.nick && aux.password !== user.password){
-                      console.log("TESTE");
-                      response.writeHead(404, {'Content-Type': 'text/plain'});
+                    if(users[aux.nick].password === aux.password && users[aux.nick] !== undefined){
+                      response.writeHead(200, {'Content-Type': 'application/json'});
+                      response.end(JSON.stringify({}));
+                    }
+                    else if((users[aux.nick] !== undefined && users[aux.nick].password !== aux.password)){
+                      response.writeHead(401, {'Content-Type': 'application/json'});
+                      response.end(JSON.stringify({ "error": "User registered with a different password"}));
+                    }
+                    else{
+                      response.writeHead(404, {'Content-Type': 'application/json'});
                       response.end();
                     }
-                    else if(user.nick === aux.nick && user.password === aux.password){
-                      response.writeHead(200);
-                      response.end();
-                    }
-                    else if(user.nick !== aux.nick){
-                      users.push(aux);
-                      fs.writeFile('users.json', JSON.stringify(users), function (err) {
-                        if (err) return console.log(err);
-                      });
-                    }
-                  });
-              }
-            });
-            //verificar
-            // console.log(aux.nick);
-            // console.log(aux);
-            // let newnick = aux.nick;
-            // let obj = {`${newnick}`: {password:aux.password}};
-            // console.log(obj);
-            //response.end();
+                    response.end();
+                }
+              });
+            }
+            else{
+              response.writeHead(400, {'Content-Type': 'application/json'});
+              aux.nick === undefined ? response.end(JSON.stringify({"error":"nick is not a valid string"})) : response.end(JSON.stringify({"error":"password is not a valid string"}));
+            }
           })
           break;
         case '/rankings':
@@ -80,4 +74,4 @@ const server = http.createServer((request, response) => {
 //     console.log(`Server running at http://${hostname}:${port}/`);
 // });
 
-server.listen(8000);
+server.listen(8008);
