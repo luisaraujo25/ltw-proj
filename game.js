@@ -1,3 +1,5 @@
+const TIMEOUT = 1000;
+
 class Turn{
     
     constructor(pl1_turn){
@@ -14,11 +16,11 @@ class Turn{
 
     manageTurn(last_cav, no_holes){
         
-        // var aux = document.getElementById(last_cav).childNodes.length-1;
-        
+        //player 1 turn && its storage
         if(this.getTurn() && last_cav==no_holes/2){
             this.setTurn(true);   
         }
+        //player 2 turn and its storage
         else if(!this.getTurn() && last_cav==no_holes){
             this.setTurn(false);
         }
@@ -53,12 +55,12 @@ function checkException(lastCav, no_holes, t){
         if(oposCav.length){
             setCavSem(storage,getSem(lastCav)+getSem(storage)+oposCav.length);
             removeSeeds(opos_cav_num);
+            removeSeeds(lastCav);
         }
     }
 }
 
 function distribute(no_cav, t, no_holes, chosen_cavity){
-    
     
     const cavity = document.getElementById("c"+chosen_cavity);
     let sementes = cavity.childNodes;
@@ -66,9 +68,10 @@ function distribute(no_cav, t, no_holes, chosen_cavity){
     
     removeSeeds(chosen_cavity);
     
+    let cav = chosen_cavity+1;
     for(let j=1;j<=len;j++){
         
-        var cav = chosen_cavity+j;
+        cav = chosen_cavity+j;
         //ver se dá a "volta"
         if(chosen_cavity+j>no_holes){
             cav = turn_around(no_holes, chosen_cavity, j);
@@ -78,29 +81,29 @@ function distribute(no_cav, t, no_holes, chosen_cavity){
         setCavSem(cav, semN+1);
     }
     checkException(cav, no_holes, t);
-    check_end(no_holes);
+    if(check_end(no_holes)) return;
+    display(no_holes);
     t.manageTurn(cav, no_holes);
 }
 
 function display(no_holes){
 
-    if(document.getElementById("delete-me")){
-        document.getElementById("delete-me").remove();
+    let e = document.getElementById("delete");
+
+    while(e.hasChildNodes()){
+        e.removeChild(e.childNodes[0]);
     }
-    let div = document.createElement("div");
-    div.setAttribute("id","delete-me");
+
     for(let i=1;i<=no_holes;i++){
-        let e = document.createElement("div");
-        e.setAttribute("id","c"+i);
-        let aux = e.appendChild(document.createTextNode("c"+i+": "+e.childNodes.length+", "));
-        document.body.appendChild(aux);
+        // e.setAttribute("id","c"+i);
+        let text = document.createTextNode("c"+i+": "+document.getElementById("c"+i).childNodes.length+", ");
+        e.appendChild(text);
     }
 }
 
 
 function play(no_cav, t, no_holes, chosen_cavity, bot_level){
     
-    display(no_holes);
     if(t.getTurn()){
         
         if(document.getElementById("c"+chosen_cavity).childNodes.length){
@@ -108,9 +111,9 @@ function play(no_cav, t, no_holes, chosen_cavity, bot_level){
         }
     }
 
-    while(!t.getTurn()){
+    if(!t.getTurn()){
         chosen_cavity = choose_bot(bot_level);
-        distribute(no_cav, t, no_holes, chosen_cavity);
+        setTimeout(() => {distribute(no_cav, t, no_holes, chosen_cavity)},TIMEOUT);
     }    
 }
 
@@ -122,6 +125,7 @@ function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, bot_level, f
     
     var t = new Turn(pl1_turn);
 
+    display(no_holes);
     //adding every cavity a event listener
     for(let i=1;i<=no_cav;i++){
     
@@ -143,7 +147,7 @@ function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, bot_level, f
         first_move = false;
 
         //while its still bot's start since the start of the game
-        while(!pl1_turn){
+        if(!pl1_turn){
             let chosen_cavity = choose_bot(bot_level);
             play(no_cav,t,no_holes,chosen_cavity,bot_level);
         }

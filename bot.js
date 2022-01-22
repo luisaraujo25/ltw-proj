@@ -16,7 +16,6 @@ function dumbBot(no_cavs,first_id){
     
     const last_id = first_id+(+no_cavs)-1;
     const random_id = getRandomInt(first_id,last_id);
-    console.log(random_id);
 
     return random_id;
 }
