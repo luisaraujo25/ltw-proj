@@ -55,6 +55,14 @@ const server = http.createServer((request, response) => {
           })
           break;
         case '/rankings':
+          let data = '';
+          request.on('data', chunk => {
+            data += chunk;
+          })
+          request.on('end', () => {
+            let aux = JSON.parse(data);
+
+          });
           break;
 
         case '/join':
