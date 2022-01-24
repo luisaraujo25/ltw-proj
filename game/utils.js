@@ -135,6 +135,13 @@ function showLogout(){
     let loginForm = document.getElementById("login_form");
     loginForm.style.display = "none";
 
+    let username = document.getElementById("username").value;
+    let aux = document.createElement("p");
+    aux.innerText = "Logged as " + username;
+    let loggedUser = document.getElementById("loggedUser");
+    loggedUser.appendChild(aux);
+    loggedUser.style.display = "block";
+
     let logout = document.getElementById("logout");
     logout.style.display = "block";
 }

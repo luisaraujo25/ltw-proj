@@ -367,3 +367,7 @@ a:hover{
 #addHere{
     background-color: rgb(179, 179, 179);
 }
+
+#logout{
+    max-height: 30px;
+}
