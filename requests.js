@@ -25,8 +25,16 @@ loginButton.addEventListener('click', login);
 
 const open_rankings = document.getElementById('scores');
 open_rankings.addEventListener('click', () => {
-  getRankings();
-  modal_container2.classList.add('show');
+
+  let bot = isBot();
+  if(bot){
+    rankingsBot();
+    modal_container2.classList.add('show');
+  }
+  else{
+    getRankings();
+    modal_container2.classList.add('show');
+  }
 });
 
 
@@ -118,11 +126,6 @@ function getRankings(){
       
       let table = document.getElementById("tab");
       
-      //removes text if already written
-      while(table.hasChildNodes()){
-        table.removeChild(table.childNodes[0]);
-      }
-      
       //adds table headline
       tableHead();
       //writes text
@@ -174,7 +177,7 @@ function joinGame(){
   if(players == 2){
     if(nick && password){
       const config = {group, nick, password, size, initial};
-      fetch(URL + 'join', {
+      fetch(URL1 + 'join', {
         'method': 'POST',
         'body': JSON.stringify(config)
       })

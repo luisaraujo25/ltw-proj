@@ -94,3 +94,13 @@ function removeSeeds(cav){
 function getSemsNumber(cav){
     return document.getElementById("c"+cav).childNodes.length;
 }
+
+//removes text if already written
+function cleanTable(){
+    let table = document.getElementById("tab");
+      
+      //removes text if already written
+      while(table.hasChildNodes()){
+        table.removeChild(table.childNodes[0]);
+      }
+}

@@ -65,7 +65,21 @@ function score(){
 
     addHere.appendChild(won);
 
-    // document.getElementById("tabuleiro").removeEventListener("click",score);
+   //checks if pl2 is bot
+   let bot = isBot();
+   if(bot){
+
+        if(winner == "PLAYER 1"){
+            let wins = localStorage.getItem("Human");
+            wins++;
+            localStorage.setItem("Human", wins);
+        }
+        else if(winner == "PLAYER 2"){
+            let wins = localStorage.getItem("Bot");
+            wins++;
+            localStorage.setItem("Bot", wins);
+        }
+   }
 }
 
 function give_up(){
@@ -144,4 +158,57 @@ function showLogout(){
 
     let logout = document.getElementById("logout");
     logout.style.display = "block";
+}
+
+function rankingsBot(){
+    
+    localStorage.setItem("Bot",0);
+    localStorage.setItem("Human",0);
+    localStorage.setItem("Games",0);
+
+    if (typeof(Storage) !== "undefined") {
+
+        let table = document.getElementById("tab");
+        //adds table headline
+        tableHead();
+
+        let games = document.createElement("th");
+        games.innerText = localStorage.getItem("Games");
+
+        let games2 = document.createElement("th");
+        games2.innerText = localStorage.getItem("Games");
+
+        let entry = document.createElement("tr");
+        let name = document.createElement("th");
+        let wins = document.createElement("th");
+        name.innerText = "Human";
+        wins.innerText = localStorage.getItem("Human");
+        entry.appendChild(name);
+        entry.appendChild(wins);
+        entry.appendChild(games);
+        table.appendChild(entry);
+
+
+        let entry2 = document.createElement("tr");
+        let name2 = document.createElement("th");
+        let wins2 = document.createElement("th");
+        name2.innerText = "Bot";
+        wins2.innerText = localStorage.getItem("Bot");
+        entry2.appendChild(name2);
+        entry2.appendChild(wins2);
+        entry2.appendChild(games2);
+        table.appendChild(entry2);
+
+    }
+    else{
+        console.log("This browser doesn't support WebStorage :(");
+    }
+}
+
+function isBot(){
+
+    let pl = document.getElementById("num_players_op").value;
+    let bot = false;
+    if(pl == "1") bot=true;
+    return bot;
 }
