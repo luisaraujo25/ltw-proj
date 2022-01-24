@@ -47,19 +47,29 @@ const server = http.createServer((request, response) => {
           })
           break;
         case '/ranking':
-            let ranks = '';
-            request.on('data', chunk => {
-              ranks += chunk;
-            })
-            request.on('end', () => {
-              let rankings = ranking();
-
-              rankings.then((body) => {
-                response.writeHead(body.status, {"Acess-Control-Allow-Origin" : "*"});
-                response.end(body.body);
-                return;
-              })
-            })
+          let ranks = '';
+          request.on('data', chunk => {
+            ranks += chunk;
+          })
+          fs.readFile('./files/rankings.json',function(err,data) {
+            if(!err){
+              try{
+                ranking_data = JSON.parse(data.toString());
+                console.log(ranking_data);
+              } catch (e){
+                ranking_data = [];
+              }
+              if(ranking_data.length === 0 || ranking_data === null){
+                var list = {ranking : []};
+              }
+              else{
+                ranking_data.sort(function(x,y){return y["victories"]-x["victories"]});
+                var list = {ranking : ranking_data.slice(0,10)};
+              }
+              response.writeHead(200, {"Access-Control-Allow-Origin":"*"});
+              response.end(JSON.stringify(list));
+            }
+          });
           break;
 
         case '/join':
@@ -96,4 +106,4 @@ const server = http.createServer((request, response) => {
 //     console.log(`Server running at http://${hostname}:${port}/`);
 // });
 
-server.listen(8008);
+server.listen(port);

@@ -162,9 +162,10 @@ function showLogout(){
 
 function rankingsBot(){
     
-    // localStorage.setItem("Bot",0);
-    // localStorage.setItem("Human",0);
-    // localStorage.setItem("Games",0);
+    if(!localStorage.getItem("Bot")) localStorage.setItem("Bot",0);
+    if(!localStorage.getItem("Human")) localStorage.setItem("Human",0);
+    if(!localStorage.getItem("Games")) localStorage.setItem("Games",0);
+
 
     if (typeof(Storage) !== "undefined") {
 

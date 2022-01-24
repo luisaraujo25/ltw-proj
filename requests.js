@@ -1,6 +1,8 @@
 const URL1 = "http://twserver.alunos.dcc.fc.up.pt:8008/";
 
-const URL = "http://localhost:8008/";
+//const URL = "http://localhost:9110/";
+const URL = "http://twserver.alunos.dcc.fc.up.pt:9110/";
+
 
 // const group = 150; // Número do grupo para emparelhamento para debugging (usem o vosso)
 const group = 123487572242;
@@ -111,55 +113,51 @@ function updateBoard(message){
 }
 
 function getRankings(){
+  const ranking_url = URL + "ranking";
+  
+  fetch(ranking_url, {
+    method: 'POST',
+    body: JSON.stringify({})
+  })
+  .then(response => response.json())
+  .then(data => {
 
-    const ranking_url = URL1 + "ranking";
-    const data = {};
+    console.log('Success:', data);
     
-    fetch(ranking_url, {
-      method: 'POST',
-      body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-
-      console.log('Success:', data.ranking);
+    let table = document.getElementById("tab");
+    
+    //adds table headline
+    tableHead();
+    //writes text
+    for(let i=0;i<data.ranking.length;i++){
       
-      let table = document.getElementById("tab");
+      let entry = document.createElement("tr");
+
+      let name = document.createElement("th");
+      name.innerText = data.ranking[i].nick;
       
-      //adds table headline
-      tableHead();
-      //writes text
-      for(let i=0;i<data.ranking.length;i++){
-        
-        let entry = document.createElement("tr");
+      let victories = document.createElement("th");
+      // victories.setAttribute("class","margin-me");
+      victories.innerText = data.ranking[i].victories;
 
-        let name = document.createElement("th");
-        name.innerText = data.ranking[i].nick;
-        
-        let victories = document.createElement("th");
-        // victories.setAttribute("class","margin-me");
-        victories.innerText = data.ranking[i].victories;
+      let games = document.createElement("th");
+      // game.setAttribute("class","margin-me");
+      games.innerText = data.ranking[i].games;
 
-        let games = document.createElement("th");
-        // game.setAttribute("class","margin-me");
-        games.innerText = data.ranking[i].games;
+      entry.appendChild(name);
+      entry.appendChild(victories);
+      entry.appendChild(games);
 
-        entry.appendChild(name);
-        entry.appendChild(victories);
-        entry.appendChild(games);
-
-        table.appendChild(entry);
-      }
-    })
-    .catch(error => showMessages(error));
-
-    return data.ranking;
+      table.appendChild(entry);
+    }
+  })
+  .catch(error => showMessages(error));
 }
 
 function login(){
 
   const credentials = {nick, password};
-  fetch(URL1 + 'register', {
+  fetch(URL + 'register', {
     'method': 'POST',
 		'body': JSON.stringify(credentials)
   })
@@ -220,7 +218,6 @@ function leave(){
 
 function notify(move){
   const config = {nick, password, game: gameId, move}; //move -> id da cavidade
-  //console.log(gameId);
   fetch(URL1 + 'notify', {
     'method': 'POST',
 		'body': JSON.stringify(config)
