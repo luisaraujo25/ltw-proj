@@ -162,9 +162,9 @@ function showLogout(){
 
 function rankingsBot(){
     
-    localStorage.setItem("Bot",0);
-    localStorage.setItem("Human",0);
-    localStorage.setItem("Games",0);
+    // localStorage.setItem("Bot",0);
+    // localStorage.setItem("Human",0);
+    // localStorage.setItem("Games",0);
 
     if (typeof(Storage) !== "undefined") {
 

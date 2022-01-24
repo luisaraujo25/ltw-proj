@@ -185,6 +185,9 @@ function addEventListeners(no_cav, no_sem, pl1_turn, no_holes, bot, bot_level, f
 
 function game(){
 
+    let no_games = localStorage.getItem("Games");
+    no_games++;
+    localStorage.setItem("Games",no_games);
     
     const no_cav = document.getElementById("num_cavidades_op").value;
     const no_sem = document.getElementById("num_sementes_op").value;
