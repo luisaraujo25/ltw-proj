@@ -98,7 +98,7 @@ function updateBoard(message){
 
 }
 
-
+getRankings();
 function getRankings(){
 
     const ranking_url = URL + "ranking";
@@ -111,10 +111,21 @@ function getRankings(){
     .then(response => response.json())
     .then(data => {
 
-      console.log('Success:', data);
+      console.log('Success:', data.ranking);
 
+      let list = document.createElement("ol");
+      
+      for(let i=0;i<data.ranking.length;i++){
+        let entry = document.createElement("li");
+        entry.appendChild(data.ranking[i]);
+        table.appendChild(entry);
+      }
+
+      document.body.appendChild(table);
     })
     .catch(error => showMessages(error));
+
+    return data.ranking;
 }
 
 function login(){
