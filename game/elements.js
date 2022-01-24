@@ -18,6 +18,11 @@ function removeElements(){
         s.remove();
     }
 
+    let addHere = document.getElementById("addHere");
+
+    if(addHere.hasChildNodes()){
+        addHere.removeChild(addHere.childNodes[0]);
+    }
 }
 
 function addElements(no_cav, no_sem){

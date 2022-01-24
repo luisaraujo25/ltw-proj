@@ -19,6 +19,10 @@ class Turn{
         //player 1 turn && its storage
         if(this.getTurn() && last_cav==no_holes/2){
             this.setTurn(true);   
+            let addHere = document.getElementById("addHere");
+            let play = document.createElement("p");
+            play.innerText = "Play again!";
+            addHere.appendChild(play);
         }
         //player 2 turn and its storage
         else if(!this.getTurn() && last_cav==no_holes){
@@ -34,16 +38,22 @@ function checkException(lastCav, no_holes, t){
 
     //(...)-1 since after the play the last cavity will always have at least one seed
     let lastCavSem = document.getElementById("c"+lastCav).childNodes.length-1;
+    let midStorage = no_holes/2;
     let storage = no_holes;
     let belongsToPlayer = false;
+
+    if(lastCav==midStorage || lastCav==storage){
+        return;
+    }
+
     if(t.getTurn()){
-        storage /= 2;
-        if(lastCav < storage){
+        if(lastCav < midStorage){
             belongsToPlayer = true;
         }
+        storage /= 2;
     }
     else{
-        if(lastCav > storage/2){
+        if(lastCav > midStorage){
             belongsToPlayer = true;
         }
     }
@@ -53,14 +63,20 @@ function checkException(lastCav, no_holes, t){
         let opos_cav_num = no_holes-lastCav;
         let oposCav = document.getElementById("c"+opos_cav_num).childNodes;
         if(oposCav.length){
-            setCavSem(storage,getSem(lastCav)+getSem(storage)+oposCav.length);
-            removeSeeds(opos_cav_num);
+            let totalSems = getSem(lastCav) + getSem(storage)+oposCav.length;
             removeSeeds(lastCav);
+            removeSeeds(opos_cav_num);
+            setCavSem(storage, totalSems);
         }
     }
 }
 
 function distribute(no_cav, t, no_holes, chosen_cavity){
+
+    let addHere = document.getElementById("addHere");
+    if(addHere.hasChildNodes()){
+        addHere.removeChild(addHere.childNodes[0]);
+    }
     
     const cavity = document.getElementById("c"+chosen_cavity);
     let sementes = cavity.childNodes;
@@ -80,10 +96,19 @@ function distribute(no_cav, t, no_holes, chosen_cavity){
         let semN = getSemsNumber(cav);
         setCavSem(cav, semN+1);
     }
+    console.log("JOGUEI");
+
+    console.log("Last cav before exception: "+cav);
     checkException(cav, no_holes, t);
     if(check_end(no_holes)) return;
     display(no_holes);
+    console.log("Last cav before changing turn: "+cav);
     t.manageTurn(cav, no_holes);
+
+    if(!t.getTurn){
+        chosen_cavity = choose_bot(bot_level);
+        distribute(no_cav, t, no_holes, chosen_cavity);
+    }
 }
 
 function display(no_holes){
@@ -107,13 +132,16 @@ function play(no_cav, t, no_holes, chosen_cavity, bot_level){
     if(t.getTurn()){
         
         if(document.getElementById("c"+chosen_cavity).childNodes.length){
-            distribute(no_cav, t, no_holes, chosen_cavity);
+            distribute(no_cav, t, no_holes, chosen_cavity, bot_level);
         }
     }
 
     if(!t.getTurn()){
+        console.log("ENTREI NA VEZ DO BOT");
         chosen_cavity = choose_bot(bot_level);
-        setTimeout(() => {distribute(no_cav, t, no_holes, chosen_cavity)},TIMEOUT);
+        setTimeout(() => {
+            distribute(no_cav, t, no_holes, chosen_cavity);
+        },TIMEOUT);
     }    
 }
 

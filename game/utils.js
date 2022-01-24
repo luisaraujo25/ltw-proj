@@ -57,22 +57,26 @@ function score(){
     else{
         winner="EMPATE!";
     }
-    
-    console.log(winner);
 
-    const result = document.createElement("div");
-    result.innerText = "Winner: " + winner;
-    result.setAttribute("class","score_res");
-    result.setAttribute("id","result")
+    let addHere = document.getElementById("addHere");
 
-    document.getElementById("tabuleiro").appendChild(result);
+    const won = document.createElement("p");
+    won.innerText = "Game ended! And the winner is......... " + winner + "!";
 
-    document.getElementById("tabuleiro").removeEventListener("click",score);
+    addHere.appendChild(won);
+
+    // document.getElementById("tabuleiro").removeEventListener("click",score);
 }
 
 function give_up(){
+
     //if we remove all cavities then their event listeners will be removed as well
     removeElements();
+
+    let addHere = document.getElementById("addHere");
+    let gaveUp = document.createElement("p");
+    gaveUp.innerText = "You lost and gave up :(";
+    addHere.appendChild(gaveUp);
 }
 
 //number of seeds per cavity
