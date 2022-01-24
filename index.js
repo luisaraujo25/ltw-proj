@@ -51,25 +51,17 @@ const server = http.createServer((request, response) => {
           request.on('data', chunk => {
             ranks += chunk;
           })
-          fs.readFile('./files/rankings.json',function(err,data) {
-            if(!err){
-              try{
-                ranking_data = JSON.parse(data.toString());
-                console.log(ranking_data);
-              } catch (e){
-                ranking_data = [];
-              }
-              if(ranking_data.length === 0 || ranking_data === null){
-                var list = {ranking : []};
-              }
-              else{
-                ranking_data.sort(function(x,y){return y["victories"]-x["victories"]});
-                var list = {ranking : ranking_data.slice(0,10)};
-              }
-              response.writeHead(200, {"Access-Control-Allow-Origin":"*"});
-              response.end(JSON.stringify(list));
-            }
-          });
+          request.on('end', () =>{
+            let rankings = ranking();
+            rankings.then((messages) => {
+              response.writeHead(messages.status, {"Access-Control-Allow-Origin":"*"});
+              response.write(JSON.stringify(messages.body));
+              response.end();
+              return;
+            })
+          })
+          response.writeHead(400);
+          response.end;
           break;
 
         case '/join':
