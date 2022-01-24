@@ -198,14 +198,8 @@ close.addEventListener('click', () => {
 });
 
 
-const open_rankings = document.getElementById('scores');
 const modal_container2 = document.getElementById('modal_container2');
 const close_rankings = document.getElementById('close-rankings');
-
-open_rankings.addEventListener('click', () => {
-    getRankings();
-    modal_container2.classList.add('show');
-});
 
 close_rankings.addEventListener('click', () => {
     modal_container2.classList.remove('show');

@@ -2,7 +2,7 @@ body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-color: rgb(249, 255, 249);
     margin-left: 20px;
-    word-break: break-word;
+    /* word-break: break-word; */
 }
 
 ::selection{
@@ -47,16 +47,6 @@ h1{
     height: 100vh;
     width: 100vw;
     background-color: rgb(235, 255, 235);
-}
-
-.regras-modal {
-    background-color: rgb(242, 255, 242);
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding:30px 50px;
-    width: 1000px;
-    max-width: 100%;
-    text-align: left;
 }
 
 #config{
@@ -242,7 +232,7 @@ h1{
 }
 
 #giveup{
-    /* margin-left: 1100px; */
+    /* width: 20px; */
 }
 
 #cf{
@@ -350,4 +340,26 @@ a:hover{
     font-size: 14px;
     opacity: 0.7;
     text-align: justify;
+}
+
+#tab{
+    display:inline-table;
+    /* flex-direction: row; */
+    justify-content: center;
+    text-align: center;
+}
+
+.margin-me{
+    margin-left: 10px;
+}
+
+#format{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#close-rankings{
+    max-width: 70px;
 }

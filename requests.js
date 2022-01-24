@@ -23,8 +23,12 @@ passwordInput.addEventListener('change', (evt) => password = evt.target.value);
 const loginButton = document.getElementById('login');
 loginButton.addEventListener('click', login);
 
-const rankingButton = document.getElementById('scores');
-rankingButton.addEventListener('click', getRankings);
+const open_rankings = document.getElementById('scores');
+open_rankings.addEventListener('click', () => {
+  getRankings();
+  modal_container2.classList.add('show');
+});
+
 
 const sizeInput = document.getElementById('num_cavidades_op');
 sizeInput.addEventListener('change', (evt) => size = evt.target.value);
@@ -98,10 +102,9 @@ function updateBoard(message){
 
 }
 
-getRankings();
 function getRankings(){
 
-    const ranking_url = URL + "ranking";
+    const ranking_url = URL1 + "ranking";
     const data = {};
     
     fetch(ranking_url, {
@@ -112,13 +115,37 @@ function getRankings(){
     .then(data => {
 
       console.log('Success:', data.ranking);
-
-      let list = document.getElementById("olist");
       
+      let table = document.getElementById("tab");
+      
+      //removes text if already written
+      while(table.hasChildNodes()){
+        table.removeChild(table.childNodes[0]);
+      }
+      
+      //adds table headline
+      tableHead();
+      //writes text
       for(let i=0;i<data.ranking.length;i++){
-        let entry = document.createElement("li");
-        entry.innerText = "ranking: "+data.ranking[i];
-        list.appendChild(entry);
+        
+        let entry = document.createElement("tr");
+
+        let name = document.createElement("th");
+        name.innerText = data.ranking[i].nick;
+        
+        let victories = document.createElement("th");
+        // victories.setAttribute("class","margin-me");
+        victories.innerText = data.ranking[i].victories;
+
+        let games = document.createElement("th");
+        // game.setAttribute("class","margin-me");
+        games.innerText = data.ranking[i].games;
+
+        entry.appendChild(name);
+        entry.appendChild(victories);
+        entry.appendChild(games);
+
+        table.appendChild(entry);
       }
     })
     .catch(error => showMessages(error));
@@ -129,7 +156,7 @@ function getRankings(){
 function login(){
 
   const credentials = {nick, password};
-  fetch(URL + 'register', {
+  fetch(URL1 + 'register', {
     'method': 'POST',
 		'body': JSON.stringify(credentials)
   })

@@ -90,3 +90,37 @@ function getRandomInt(min, max){
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+function testRankings(){
+
+    let list = document.getElementById("tab");
+
+    while(list.hasChildNodes()){
+        list.removeChild(list.childNodes[0]);
+    }
+
+    let data = "ola";
+    let entry = document.createElement("li");
+    entry.innerText = "ranking: "+ data;
+    list.appendChild(entry);
+}
+
+function tableHead(){
+
+    let list = document.getElementById("tab");
+    let entry = document.createElement("tr");
+
+    let name = document.createElement("th");
+    name.innerText = "Nome:";
+
+    let victories = document.createElement("th");
+    victories.innerText = "Vitórias:";
+
+    let games = document.createElement("th");
+    games.innerText = "Jogos: ";
+
+    entry.appendChild(name);
+    entry.appendChild(victories);
+    entry.appendChild(games);
+
+    list.appendChild(entry);
+}
