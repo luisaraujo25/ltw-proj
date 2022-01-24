@@ -161,7 +161,11 @@ function login(){
 		'body': JSON.stringify(credentials)
   })
   .then(response => response.json())
-  .then((json) => showMessages(json))
+  .then((json) => {
+
+    showMessages(json);
+    showLogout();
+  })
   .catch(error => showMessages(error));
 }
 

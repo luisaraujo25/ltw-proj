@@ -128,3 +128,13 @@ function tableHead(){
 
     list.appendChild(entry);
 }
+
+
+function showLogout(){
+
+    let loginForm = document.getElementById("login_form");
+    loginForm.style.display = "none";
+
+    let logout = document.getElementById("logout");
+    logout.style.display = "block";
+}

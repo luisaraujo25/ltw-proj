@@ -363,3 +363,7 @@ a:hover{
 #close-rankings{
     max-width: 70px;
 }
+
+#addHere{
+    background-color: rgb(179, 179, 179);
+}

@@ -50,17 +50,20 @@
             </div>
           </div>
     </div>
-    <fieldset id="login_form">
-        
-        <label for="username">Username: </label>
-        <input type="text" placeholder="Enter username" name="username" autocomplete="on" id="username">
-
-        <label for="password">Password: </label>
-        <input type="password" placeholder="Enter password" name ="password" id="password" autocomplete="off" required>
-        <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
-        
-        <button id="login">Login</button>
-    </fieldset>
+    <!-- <div class="modal-container" id="modal_container3"> -->
+        <fieldset id="login_form" class="modal">
+            
+            <label for="username">Username: </label>
+            <input type="text" placeholder="Enter username" name="username" autocomplete="on" id="username">
+    
+            <label for="password">Password: </label>
+            <input type="password" placeholder="Enter password" name ="password" id="password" autocomplete="off" required>
+            <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
+            
+            <button class="button" id="login">Login</button>
+        </fieldset>
+        <button class="button" id="logout" onClick="location.reload()" hidden>Logout</button>
+    <!-- </div> -->
 </div>
 
 <br>
@@ -116,7 +119,6 @@
     Show seed numbers: <br>
 </div>
 
-<div id="addHere"></div>
 
 <div id="jogo">
     <div id="tabuleiro">
@@ -131,21 +133,22 @@
     </div>
     <br><br>
     <div id="extra">
-
+        
         <button class="button" id="scores">Classifições</button>
         <div class="modal-container" id="modal_container2">
             <div class="modal" id="format">
-              <h1>Classificações</h1>
+                <h1>Classificações</h1>
                 <table id="tab">
                 </table>
-              <button id="close-rankings" class="button">
-                Close
-              </button>
+                <button id="close-rankings" class="button">
+                    Close
+                </button>
             </div>
         </div>
         <button class="button" id="giveup">Desistir</button>
-
+        
     </div>
+    <div id="addHere"></div>
 </div>
 <p>Go back to the <a href="#top">top</a></p>
 <div id="messages"></div>
