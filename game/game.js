@@ -203,6 +203,7 @@ const modal_container2 = document.getElementById('modal_container2');
 const close_rankings = document.getElementById('close-rankings');
 
 open_rankings.addEventListener('click', () => {
+    getRankings();
     modal_container2.classList.add('show');
 });
 

@@ -113,15 +113,13 @@ function getRankings(){
 
       console.log('Success:', data.ranking);
 
-      let list = document.createElement("ol");
+      let list = document.getElementById("olist");
       
       for(let i=0;i<data.ranking.length;i++){
         let entry = document.createElement("li");
-        entry.appendChild(data.ranking[i]);
-        table.appendChild(entry);
+        entry.innerText = "ranking: "+data.ranking[i];
+        list.appendChild(entry);
       }
-
-      document.body.appendChild(table);
     })
     .catch(error => showMessages(error));
 
