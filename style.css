@@ -17,11 +17,10 @@ h1{
     text-align: center;
 }
 
+
+
 #main_title{    
-    text-decoration-line: underline;
-    text-decoration-color: rgb(36, 122, 33);
-    text-decoration-style: wavy;
-    text-decoration-thickness: 3px;
+    text-shadow: 2px 2px 10px #858b84;
 }
 
 #header{
@@ -244,10 +243,6 @@ h1{
 
 #giveup{
     /* margin-left: 1100px; */
-}
-
-#scores{
-    /* margin-left: 1000px; */
 }
 
 #cf{
