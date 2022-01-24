@@ -1,6 +1,6 @@
-const URL = "http://twserver.alunos.dcc.fc.up.pt:8008/";
+const URL1 = "http://twserver.alunos.dcc.fc.up.pt:8008/";
 
-//const URL = "http://localhost:8008/";
+const URL = "http://localhost:8008/";
 
 // const group = 150; // Número do grupo para emparelhamento para debugging (usem o vosso)
 const group = 123487572242;
@@ -45,7 +45,7 @@ function startOnlineGame(){
     sse.close();
   }
 
-  sse = new EventSource(URL + "update?nick=" + nick + "&game=" + gameId);
+  sse = new EventSource(URL1 + "update?nick=" + nick + "&game=" + gameId);
   sse.onmessage = handleUpdate;
   showMessages("Awaiting remote player...");
 
@@ -159,7 +159,7 @@ function joinGame(){
 
 function leave(){
   const config = {nick, password, game: gameId};
-  fetch(URL + 'leave', {
+  fetch(URL1 + 'leave', {
     'method': 'POST',
 		'body': JSON.stringify(config)
   })
@@ -178,7 +178,7 @@ function leave(){
 function notify(move){
   const config = {nick, password, game: gameId, move}; //move -> id da cavidade
   //console.log(gameId);
-  fetch(URL + 'notify', {
+  fetch(URL1 + 'notify', {
     'method': 'POST',
 		'body': JSON.stringify(config)
   })

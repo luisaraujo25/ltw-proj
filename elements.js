@@ -72,6 +72,9 @@ function setCavSem(cav, numSeeds){
     for(let i=0; i<numSeeds; i++){
         var sem = document.createElement("div");
         sem.setAttribute("class","semente");
+        sem.style.left = (Math.random() * (60 - 35) + 35) + "%";
+        sem.style.top = (Math.random() * (60 - 30) + 30) + "%";
+        sem.style.transform = "rotate("+ (Math.random() * (360)) +"deg)";
         document.getElementById("c"+cav).appendChild(sem);
     }
 }
